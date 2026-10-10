@@ -8,35 +8,38 @@ const CategoryItem = ({ category, level = 0 }) => {
   const { toggleCategory, expandedCategories } = useCategories();
   const isExpanded = expandedCategories[category._id];
   const hasSubcategories = category.subcategories && category.subcategories.length > 0;
-  const paddingLeft = `${level * 28 + 12}px`;
+  const paddingLeft = `${level * 20 + 12}px`;
 
   return (
     <>
       <div 
-        className={`menu-item ${isExpanded ? 'open' : ''}`}
+        className={`menu-item rounded-xl transition-all ${isExpanded ? 'open' : ''}`}
         onClick={() => hasSubcategories && toggleCategory(category._id)}
       >
-        <div className="menu-label flex items-center justify-between p-4 pr-4 cursor-pointer select-none transition-all group"
+        <div 
+          className="menu-label flex items-center justify-between py-3 pr-3 cursor-pointer select-none transition-all group hover:bg-[#FAF6F0] rounded-xl"
           style={{ paddingLeft }}
         >
           <Link 
-            href={`/category/${category.slug}`}
-            className={`truncate flex-1 group-hover:text-blue-700 ${level === 0 ? 'font-semibold text-lg' : 'text-base'} ${isExpanded ? 'font-bold text-blue-700' : ''}`}
+            href={`/category/${category.slug || '#'}`}
+            className={`truncate flex-1 transition-colors ${level === 0 ? 'font-bold text-sm' : 'text-xs font-medium'}`}
+            style={{ color: isExpanded ? "#C49A6C" : "#2B211D" }}
           >
             {category.name}
           </Link>
           {hasSubcategories && (
-            <span className="icon-toggle flex-shrink-0 ml-3 p-1 rounded-full group-hover:bg-blue-100 transition-all">
-{isExpanded ? '−' : '+'}
+            <span className="icon-toggle flex-shrink-0 ml-2 p-1 rounded-lg text-xs font-bold"
+              style={{ background: "#FAF6F0", color: "#3E2723" }}>
+              {isExpanded ? '−' : '+'}
             </span>
           )}
         </div>
       </div>
       {hasSubcategories && isExpanded && (
-        <div className="sub-menu overflow-hidden">
+        <div className="sub-menu pl-2 border-l border-[#E7DED5] ml-4 my-1 space-y-1">
           {category.subcategories.map((subCategory) => (
             <CategoryItem 
-              key={subCategory._id}
+              key={subCategory._id || subCategory.name}
               category={subCategory}
               level={level + 1}
             />
@@ -48,4 +51,3 @@ const CategoryItem = ({ category, level = 0 }) => {
 };
 
 export default CategoryItem;
-

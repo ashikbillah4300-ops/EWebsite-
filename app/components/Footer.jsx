@@ -1,64 +1,127 @@
 import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+
+const footerLinks = {
+  important: [
+    { label: 'About Us', href: '/about' },
+    { label: 'Track Order', href: '/orders' },
+    { label: 'File a Complaint', href: '/contact' },
+    { label: 'Return & Refund Policy', href: '/privacy' },
+    { label: 'Corporate Orders', href: '/contact' },
+    { label: 'Terms & Conditions', href: '/terms' },
+    { label: 'Privacy Policy', href: '/privacy' },
+  ],
+};
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-8 md:py-16">
-      <div className="max-w-7xl mx-auto px-3 md:px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 md:12">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-3 md:mb-4">
-              <ShoppingBag className="w-6 md:w-8 h-6 md:h-8 text-blue-400" />
-              <span className="text-lg md:text-2xl font-bold">StellarMartBD</span>
-            </div>
-            <p className="text-gray-300 mb-4 text-sm">Your trusted online shopping destination in Bangladesh.</p>
-            <div className="flex gap-2 md:gap-4">
-              <a href="#" className="w-8 md:w-10 h-8 md:h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 text-white font-bold text-sm">f</a>
-              <a href="#" className="w-8 md:w-10 h-8 md:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-400 text-white font-bold text-sm">in</a>
-              <a href="#" className="w-8 md:w-10 h-8 md:h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-500 text-white font-bold text-sm">Y</a>
-            </div>
-          </div>
+    <footer style={{ background: '#2B1B18' }}>
+      {/* Main footer content */}
+      <div className="max-w-7xl mx-auto px-4 py-10 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+
+          {/* Col 1 — Brand */}
           <div>
-            <h4 className="font-bold text-sm md:text-lg mb-3 md:mb-4 text-white">Quick Links</h4>
-            <ul className="space-y-2 text-gray-300 text-xs md:text-sm">
-              <li><Link href="/about" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
-              <li><Link href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-blue-400 transition-colors">Terms & Conditions</Link></li>
-            </ul>
+            <Link href="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, #3E2723, #C49A6C)' }}>
+                <ShoppingBag className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-2xl font-black tracking-tight text-white"
+                style={{ fontFamily: "'Playfair Display', serif" }}>
+                THAWBIN
+              </span>
+            </Link>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: '#A08070' }}>
+              Premium furniture and adjustable desks, thoughtfully crafted to bring comfort, style, and productivity to your workspace in Bangladesh.
+            </p>
+            {/* Social icons */}
+            <div className="flex gap-3">
+              {[
+                { Icon: Facebook, href: '#', bg: '#3b5998' },
+                { Icon: Instagram, href: '#', bg: '#e1306c' },
+                { Icon: Youtube, href: '#', bg: '#ff0000' },
+              ].map(({ Icon, href, bg }, i) => (
+                <a key={i} href={href}
+                  className="w-9 h-9 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                  style={{ background: bg }}>
+                  <Icon className="w-4 h-4 text-white" />
+                </a>
+              ))}
+            </div>
           </div>
+
+          {/* Col 2 — Important Links */}
           <div>
-            <h4 className="font-bold text-sm md:text-lg mb-3 md:mb-4 text-white">My Account</h4>
-            <ul className="space-y-2 text-gray-300 text-xs md:text-sm">
-              <li><Link href="/login" className="hover:text-blue-400 transition-colors">Login</Link></li>
-              <li><Link href="/register" className="hover:text-blue-400 transition-colors">Register</Link></li>
-              <li><Link href="/cart" className="hover:text-blue-400 transition-colors">Shopping Cart</Link></li>
-              <li><Link href="/orders" className="hover:text-blue-400 transition-colors">My Orders</Link></li>
+            <h4 className="text-xs font-black uppercase tracking-widest mb-5"
+              style={{ color: '#C49A6C', letterSpacing: '0.1em' }}>
+              Important Links
+            </h4>
+            <ul className="space-y-2.5">
+              {footerLinks.important.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href}
+                    className="text-sm transition-colors hover:text-white"
+                    style={{ color: '#C5B0A0' }}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="col-span-2 md:col-span-1">
-            <h4 className="font-bold text-sm md:text-lg mb-3 md:mb-4 text-white">Contact Us</h4>
-            <ul className="space-y-2 text-gray-300 text-xs md:text-sm">
-              <li className="flex items-center gap-2">
-                <span className="text-blue-400">📍</span> Dhaka, Bangladesh
+
+          {/* Col 3 — Contact */}
+          <div>
+            <h4 className="text-xs font-black uppercase tracking-widest mb-5"
+              style={{ color: '#C49A6C', letterSpacing: '0.1em' }}>
+              Contact Us
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
+                <a href="mailto:info@thawbin.com" className="text-sm hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  info@thawbin.com
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-blue-400">📧</span> info@stellarmartbd.com
+              <li className="flex items-start gap-3">
+                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
+                <a href="tel:+8801234567890" className="text-sm hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  +880 1234-567890
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-blue-400">📞</span> +880 1234 567890
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
+                <span className="text-sm" style={{ color: '#C5B0A0' }}>
+                  Dhaka, Bangladesh
+                </span>
               </li>
             </ul>
+
+            {/* Payment badges */}
+            <div className="mt-6">
+              <p className="text-xs mb-2" style={{ color: '#6B5040' }}>Accepted Payments</p>
+              <div className="flex flex-wrap gap-2">
+                {['💳 Visa', '💳 Mastercard', '💰 bKash', '💰 Nagad'].map((p, i) => (
+                  <span key={i} className="px-2.5 py-1 rounded text-xs font-medium"
+                    style={{ background: '#3D2820', color: '#C5B0A0', border: '1px solid #5D3D2E' }}>
+                    {p}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="border-t border-gray-700 pt-4 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
-          <p className="text-gray-300 text-xs md:text-sm">© 2024 StellarMartBD. All rights reserved.</p>
-          <div className="flex items-center gap-2 md:gap-4">
-            <span className="px-2 md:px-3 py-1 bg-gray-800 rounded text-gray-300 text-xs">💳 Visa</span>
-            <span className="px-2 md:px-3 py-1 bg-gray-800 rounded text-gray-300 text-xs">💳 Mastercard</span>
-            <span className="px-2 md:px-3 py-1 bg-gray-800 rounded text-gray-300 text-xs hidden sm:inline">💰 bKash</span>
-            <span className="px-2 md:px-3 py-1 bg-gray-800 rounded text-gray-300 text-xs hidden sm:inline">💰 Nagad</span>
-          </div>
+      </div>
+
+      {/* Copyright row */}
+      <div style={{ borderTop: '1px solid #3D2820' }}>
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+          <p className="text-xs" style={{ color: '#6B5040' }}>
+            © {new Date().getFullYear()} Thawbin. All rights reserved.
+          </p>
+          <p className="text-xs" style={{ color: '#6B5040' }}>
+            Designed with care for Bangladesh 🇧🇩
+          </p>
         </div>
       </div>
     </footer>

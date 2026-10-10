@@ -52,26 +52,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4" style={{ background: "#FAF6F0" }}>
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="rounded-3xl shadow-xl p-8" style={{ background: "#FFFFFF", border: "1px solid #E7DED5" }}>
           <div className="text-center mb-8">
-            <Link href="/" className="text-3xl font-bold text-blue-600">
-              StellarMartBD
+            <Link href="/" className="text-3xl font-black tracking-tight inline-block" style={{ color: "#3E2723", fontFamily: "'Playfair Display', serif" }}>
+              THAWBIN
             </Link>
-            <h1 className="text-xl text-gray-600 mt-2">Welcome Back!</h1>
-            <p className="text-gray-500">Login to your account</p>
+            <h1 className="text-xl font-bold mt-2" style={{ color: "#2B211D" }}>Welcome Back!</h1>
+            <p className="text-sm mt-1" style={{ color: "#80736B" }}>Sign in to your account</p>
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+            <div className="mb-4 p-3 border rounded-xl text-sm font-medium" style={{ background: "#FDF2F2", borderColor: "#F87171", color: "#991B1B" }}>
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-bold tracking-wider uppercase mb-1" style={{ color: "#3E2723" }}>
                 Email Address
               </label>
               <input
@@ -79,13 +79,14 @@ export default function LoginPage() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-xl focus:outline-none transition-all text-sm"
+                style={{ background: "#FAF6F0", border: "1.5px solid #E7DED5", color: "#2B211D" }}
                 placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-bold tracking-wider uppercase mb-1" style={{ color: "#3E2723" }}>
                 Password
               </label>
               <div className="relative">
@@ -94,25 +95,27 @@ export default function LoginPage() {
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-12"
+                  className="w-full px-4 py-3 rounded-xl focus:outline-none transition-all text-sm pr-12"
+                  style={{ background: "#FAF6F0", border: "1.5px solid #E7DED5", color: "#2B211D" }}
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  style={{ color: "#80736B" }}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                <span className="text-sm text-gray-600">Remember me</span>
+            <div className="flex items-center justify-between text-xs">
+              <label className="flex items-center gap-2 cursor-pointer" style={{ color: "#80736B" }}>
+                <input type="checkbox" className="accent-[#3E2723] rounded" />
+                <span>Remember me</span>
               </label>
-              <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+              <Link href="/forgot-password" className="font-semibold hover:underline" style={{ color: "#C49A6C" }}>
                 Forgot password?
               </Link>
             </div>
@@ -120,29 +123,30 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-blue-400 flex items-center justify-center gap-2"
+              className="w-full py-3.5 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99] disabled:opacity-50"
+              style={{ background: "#3E2723" }}
             >
               {loading ? (
-                'Logging in...'
+                'Signing in...'
               ) : (
                 <>
                   <LogIn className="w-5 h-5" />
-                  Login
+                  Sign In
                 </>
               )}
             </button>
           </form>
 
           <div className="mt-6 flex items-center gap-4">
-            <div className="flex-1 h-px bg-gray-300"></div>
-            <span className="text-sm text-gray-500">OR</span>
-            <div className="flex-1 h-px bg-gray-300"></div>
+            <div className="flex-1 h-px" style={{ background: "#E7DED5" }}></div>
+            <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: "#80736B" }}>OR</span>
+            <div className="flex-1 h-px" style={{ background: "#E7DED5" }}></div>
           </div>
 
-          <p className="mt-6 text-center text-gray-600">
+          <p className="mt-6 text-center text-sm" style={{ color: "#80736B" }}>
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-blue-600 font-semibold hover:underline">
-              Register Now
+            <Link href="/register" className="font-bold hover:underline" style={{ color: "#C49A6C" }}>
+              Create Account
             </Link>
           </p>
         </div>

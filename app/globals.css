@@ -1,250 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom classes for Category Sidebar */
+/* ============================================================
+   THAWBIN — Dark Chocolate Global Design System
+   ============================================================ */
+
+:root {
+  --choco-primary:   #3E2723;
+  --choco-deep:      #2B1B18;
+  --choco-secondary: #5D4037;
+  --choco-medium:    #795548;
+  --choco-caramel:   #C49A6C;
+  --choco-cream:     #FAF6F0;
+  --choco-border:    #E7DED5;
+  --choco-text:      #2B211D;
+  --choco-muted:     #80736B;
+  --choco-success:   #32805A;
+  --choco-star:      #E5A33D;
+  --choco-white:     #FFFFFF;
+}
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--choco-cream);
+  color: var(--choco-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Scrollbar hidden */
+body::-webkit-scrollbar { display: none; }
+body { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* No top margin resets */
+body, html { margin-top: 0 !important; padding-top: 0 !important; }
+main { margin-top: 0 !important; padding-top: 0 !important; }
+main > *:first-child { margin-top: 0 !important; padding-top: 0 !important; }
+section { margin-top: 0; }
+
+@media (max-width: 767px) {
+  main > *:first-child { margin-top: -20px !important; padding-top: 0 !important; }
+  section:first-of-type { padding-top: 0 !important; }
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+.font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+/* ============================================================
+   Buttons — Dark Chocolate System
+   ============================================================ */
+.btn-choco {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--choco-primary);
+  color: var(--choco-white);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-choco:hover {
+  background-color: var(--choco-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(62,39,35,0.22);
+}
+.btn-choco:active { transform: translateY(0); }
+
+.btn-caramel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--choco-caramel);
+  color: var(--choco-white);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-caramel:hover {
+  background-color: #b08050;
+  transform: translateY(-1px);
+}
+
+.btn-outline-choco {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: transparent;
+  color: var(--choco-primary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--choco-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline-choco:hover {
+  background-color: var(--choco-primary);
+  color: var(--choco-white);
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.card-choco {
+  background: var(--choco-white);
+  border: 1px solid var(--choco-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 12px rgba(62,39,35,0.07);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.card-choco:hover {
+  box-shadow: 0 8px 32px rgba(62,39,35,0.14);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   Product Card Buttons (keep for compatibility)
+   ============================================================ */
+.product-card .btn-action {
+  @apply relative font-black uppercase tracking-wide text-sm py-3 px-4 rounded-xl transition-all duration-200 border overflow-hidden flex items-center justify-center gap-2;
+}
+
+.product-card .btn-cart {
+  background: var(--choco-cream);
+  color: var(--choco-primary);
+  border-color: var(--choco-border);
+}
+.product-card .btn-cart:hover {
+  background: #EFE2D4;
+  border-color: var(--choco-caramel);
+  color: var(--choco-primary);
+}
+
+.product-card .btn-buy {
+  background: var(--choco-primary);
+  color: var(--choco-white);
+  border-color: transparent;
+}
+.product-card .btn-buy:hover {
+  background: var(--choco-secondary);
+}
+
+/* ============================================================
+   Sidebar / Category Menu
+   ============================================================ */
 .sidebar {
-  @apply fixed left-0 top-0 h-full w-80 bg-white shadow-2xl;
+  position: fixed;
+  left: 0; top: 0;
+  height: 100%;
   width: 80%;
   max-width: 320px;
+  background: var(--choco-white);
+  box-shadow: 4px 0 32px rgba(62,39,35,0.18);
 }
 
-.sidebar-enter {
-  transform: translateX(-100%);
-}
-
+.sidebar-enter  { transform: translateX(-100%); }
 .sidebar-enter-active {
   transform: translateX(0);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .backdrop {
-  @apply fixed inset-0 bg-black/50;
+  position: fixed;
+  inset: 0;
+  background: rgba(43,27,24,0.45);
   backdrop-filter: blur(2px);
 }
 
-.category-hover:hover {
-  @apply bg-blue-50;
+.category-hover:hover { background-color: #EFE2D4; }
+
+.menu-item { border-bottom: 1px solid var(--choco-border); }
+.menu-item:last-child { border-bottom: none; }
+.menu-label { display: block; cursor: pointer; user-select: none; transition: all 0.15s; display: flex; align-items: center; justify-content: space-between; }
+.sub-menu { overflow: hidden; transition: max-height 0.3s ease; max-height: 0; }
+.menu-item.open .sub-menu { max-height: 1000px; }
+.icon-toggle { flex-shrink: 0; padding: 0.25rem; border-radius: 0.25rem; transition: all 0.15s; }
+.menu-item.open .icon-toggle { background-color: #EFE2D4; }
+
+@media (max-width: 768px) {
+  .sub-menu { padding-left: 1rem; }
+  .menu-label:hover { background-color: #EFE2D4; }
+  .menu-item.open { background-color: #F5EDE3; border-color: var(--choco-border); }
 }
 
-.vh100 {
-  height: 100vh;
+/* ============================================================
+   Forms
+   ============================================================ */
+input, textarea, select {
+  color: var(--choco-text) !important;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--choco-muted) !important;
 }
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  max-width: 100vw;
-  touch-action: pan-y;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.overflow-visible {
-  overflow: visible !important;
-}
-
-.scroll-container {
-  max-width: 100vw;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-html, body {
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 255, 255, 255;
-    --background-end-rgb: 255, 255, 255;
-  }
-}
+.animate-fadeInUp { animation: fadeInUp 0.4s ease-out; }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.toast-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-
-.spinner {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #0ea5e9;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  animation: spin 1s linear infinite;
-}
+.animate-fadeIn { animation: fadeIn 0.3s ease-out; }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
+  0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.text-gray-500 {
-  color: #4b5563 !important;
+/* ============================================================
+   Spinner
+   ============================================================ */
+.spinner {
+  border: 3px solid #EFE2D4;
+  border-top: 3px solid var(--choco-caramel);
+  border-radius: 50%;
+  width: 24px; height: 24px;
+  animation: spin 1s linear infinite;
 }
 
-.text-gray-400 {
-  color: #6b7280 !important;
+/* ============================================================
+   Toast
+   ============================================================ */
+.toast-container {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 9999;
 }
 
-.text-gray-300 {
-  color: #9ca3af !important;
-}
+/* ============================================================
+   Misc Utilities
+   ============================================================ */
+.overflow-visible { overflow: visible !important; }
+.scroll-container { max-width: 100vw; overflow-x: hidden; box-sizing: border-box; }
+.vh100 { height: 100vh; }
 
-.text-gray-200 {
-  color: #d1d5db !important;
-}
+/* Rating stars */
+.star-gold { color: var(--choco-star); fill: var(--choco-star); }
 
-/* Remove navbar gap fixes */
-body, html {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-main {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-main > *:first-child {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Ensure content sections don't add extra top space */
-section {
-  margin-top: 0;
-}
-
-/* Mobile specific gap removal */
-@media (max-width: 767px) {
-  main > *:first-child {
-    margin-top: -20px !important;
-    padding-top: 0 !important;
-  }
-  section:first-of-type {
-    padding-top: 0 !important;
-  }
-}
-
-/* Mobile Category Accordion Styling (Skyland-style) */
-.menu-item {
-  @apply border-b border-gray-100 last:border-b-0;
-}
-
-.menu-label {
-  @apply block cursor-pointer select-none transition-all flex items-center justify-between;
-}
-
-.sub-menu {
-  @apply overflow-hidden transition-all duration-300 ease-in-out;
-  max-height: 0;
-}
-
-.menu-item.open .sub-menu {
-  max-height: 1000px; /* Sufficient for nested content */
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.icon-toggle {
-  @apply flex-shrink-0 p-1 rounded transition-all;
-}
-
-.menu-item.open .icon-toggle {
-  @apply bg-blue-100;
-}
-
-@media (max-width: 768px) {
-  .sub-menu {
-    padding-left: 1rem;
-  }
-  
-  .menu-label:hover {
-    @apply bg-blue-50;
-  }
-  
-  .menu-item.open {
-    @apply bg-blue-50 border-blue-200;
-  }
-}
-
-input, textarea, select {
-  color: #111827 !important;
-}
-
-input::placeholder, textarea::placeholder {
-  color: #9ca3af !important;
-}
-
-/* Product Card Button Styles - Beautiful PHP KenaKata Style */
-.product-card .btn-action {
-  @apply relative font-black uppercase tracking-wide text-sm py-3 px-5 rounded-xl shadow-lg transition-all duration-300 border overflow-hidden flex items-center justify-center gap-2;
-}
-
-.product-card .btn-cart-minimal {
-  @apply bg-gradient-to-b from-gray-100 to-gray-200 text-slate-800 border-2 border-gray-300 hover:from-gray-200 hover:to-gray-300 hover:shadow-xl hover:-translate-y-1 hover:border-gray-400 active:scale-[0.97] before:absolute before:inset-0 before:bg-gradient-to-r before:from-emerald-400/20 before:to-blue-400/20 before:scale-0 before:transition-all before:duration-300 hover:before:scale-110;
-}
-
-.product-card .btn-cart-minimal:hover .btn-icon {
-  @apply text-emerald-600;
-}
-
-.product-card .btn-order-now {
-  @apply bg-gradient-to-r from-rose-500 via-pink-500 to-orange-500 text-white border-2 border-transparent hover:from-rose-600 hover:via-pink-600 hover:to-orange-600 hover:shadow-2xl hover:-translate-y-1 hover:shadow-rose-500/25 active:scale-[0.97] before:absolute before:inset-0 before:bg-white/20 before:scale-0 before:transition-all before:duration-300 hover:before:scale-125 shadow-rose-500/50;
-}
-
-.product-card .btn-order-now:hover .btn-icon {
-  @apply text-white drop-shadow-lg;
+/* Active category pill */
+.cat-active {
+  background-color: #EFE2D4;
+  color: var(--choco-primary);
+  border-left: 3px solid var(--choco-caramel);
+  font-weight: 700;
 }
 
 @media (max-width: 640px) {
-  .product-card .btn-action {
-    @apply py-2.5 px-4 text-xs rounded-lg;
-  }
+  .product-card .btn-action { @apply py-2.5 px-3 text-xs rounded-lg; }
 }
-
-.product-card .btn-action:focus {
-  @apply ring-4 ring-offset-2 ring-rose-500/30 outline-none;
-}
-
-.btn-icon {
-  @apply transition-all duration-300;
-}
-
-

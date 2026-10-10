@@ -39,33 +39,36 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#FAF6F0" }}>
+      <div className="rounded-3xl shadow-2xl w-full max-w-md overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E7DED5" }}>
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#083b66] to-[#062d4d] p-8 text-center">
-          <h1 className="text-2xl font-bold text-white">Admin Panel</h1>
-          <p className="text-blue-200 mt-1">StellarMartBD</p>
+        <div className="p-8 text-center text-white" style={{ background: "#2B1B18", borderBottom: "1px solid rgba(196,154,108,0.3)" }}>
+          <h1 className="text-2xl font-black tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+            THAWBIN
+          </h1>
+          <p className="text-xs uppercase tracking-widest mt-1 font-semibold" style={{ color: "#C49A6C" }}>Admin Management</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-8 space-y-5">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+            <div className="px-4 py-3 rounded-xl text-sm font-medium" style={{ background: "#FDF2F2", border: "1px solid #F87171", color: "#991B1B" }}>
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Username
+            <label className="block text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#3E2723" }}>
+              Username or Email
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#80736B" }} />
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 rounded-xl outline-none text-sm"
+                style={{ background: "#FAF6F0", border: "1.5px solid #E7DED5", color: "#2B211D" }}
                 placeholder="Enter username"
                 required
               />
@@ -73,25 +76,27 @@ export default function AdminLoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#3E2723" }}>
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#80736B" }} />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                className="w-full pl-10 pr-12 py-3 rounded-xl outline-none text-sm"
+                style={{ background: "#FAF6F0", border: "1.5px solid #E7DED5", color: "#2B211D" }}
                 placeholder="Enter password"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2"
+                style={{ color: "#80736B" }}
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
@@ -99,7 +104,8 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-[#083b66] text-white font-semibold rounded-lg hover:bg-[#062d4d] transition-all flex items-center justify-center gap-2 disabled:opacity-70"
+            className="w-full py-3.5 text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-70"
+            style={{ background: "#3E2723" }}
           >
             {loading ? (
               <>
@@ -107,15 +113,15 @@ export default function AdminLoginPage() {
                 Signing in...
               </>
             ) : (
-              'Sign In'
+              'Sign In to Dashboard'
             )}
           </button>
         </form>
 
         {/* Footer */}
-        <div className="bg-gray-50 px-8 py-4 text-center">
-          <a href="/" className="text-sm text-blue-600 hover:text-blue-700">
-            ← Back to Website
+        <div className="px-8 py-4 text-center" style={{ background: "#FAF6F0", borderTop: "1px solid #E7DED5" }}>
+          <a href="/" className="text-xs font-bold hover:underline" style={{ color: "#C49A6C" }}>
+            ← Back to THAWBIN Store
           </a>
         </div>
       </div>

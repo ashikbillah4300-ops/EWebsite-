@@ -9,13 +9,13 @@ export const dynamic = 'force-dynamic';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'StellarMartBD - Your Trusted Online Shopping Destination',
-  description: 'Best e-commerce platform in Bangladesh. Shop electronics, fashion, home & living, and more with fast delivery.',
-  keywords: 'e-commerce, online shopping, Bangladesh, electronics, fashion',
+  title: 'Thawbin — Premium Furniture & Adjustable Desks in Bangladesh',
+  description: 'Discover thoughtfully designed premium furniture and adjustable desks by Thawbin. Bringing comfort, style, and productivity to your workspace in Bangladesh.',
+  keywords: 'Thawbin, adjustable desk, furniture, premium desk, ergonomic, Bangladesh, workspace',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
   openGraph: {
-    title: 'StellarMartBD',
-    description: 'Your Trusted Online Shopping Destination',
+    title: 'Thawbin — Premium Furniture & Adjustable Desks',
+    description: 'Build Your Workspace. Your Way.',
     type: 'website',
   },
 };
@@ -23,7 +23,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={inter.className} style={{ backgroundColor: '#FAF6F0' }}>
         <AuthProvider>
           <CartProvider>
             <UserLayoutWrapper>

@@ -6,7 +6,7 @@ const BannerSection = ({
   image, 
   cta, 
   ctaLink, 
-  bgColor = 'bg-blue-600',
+  bgColor = 'bg-[#2B1B16]',
   reverse = false 
 }) => {
   return (

@@ -76,9 +76,13 @@ export default function CategoriesPage() {
         setShowModal(false);
         resetForm();
         fetchCategories();
+      } else {
+        const errData = await res.json();
+        alert(errData.error || 'Failed to save category');
       }
     } catch (error) {
       console.error('Error saving category:', error);
+      alert('Error saving category');
     }
   };
 

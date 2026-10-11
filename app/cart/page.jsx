@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, CheckCircle } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 
 export default function CartPage() {
@@ -10,180 +10,174 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#FAF6F0" }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg font-semibold text-gray-700">Loading your cart...</p>
+          <div className="w-10 h-10 border-3 border-[#B89558] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-xs font-bold text-[#80736B]">কার্ট লোড হচ্ছে...</p>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <ShoppingBag className="w-16 h-16 mx-auto mb-4 opacity-90" />
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Shopping Cart</h1>
-          <p className="text-blue-100">Review your items ({cartCount} items)</p>
-        </div>
-      </div>
+  const subtotal = cart?.total || 0;
 
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-8 text-sm">
-          <Link href="/" className="text-blue-600 hover:underline">Home</Link>
-          <span className="text-gray-400">/</span>
-          <Link href="/shop" className="text-blue-600 hover:underline">Shop</Link>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-700 font-medium">Cart</span>
+  return (
+    <div className="min-h-screen py-8 md:py-12" style={{ background: "#FAF6F0", color: "#2A211D" }}>
+      <div className="max-w-4xl mx-auto px-4">
+
+        {/* ── Breadcrumb & Header ─────────────────────────────────────── */}
+        <div className="flex items-center gap-2 text-xs text-[#80736B] mb-6">
+          <Link href="/" className="hover:text-[#2B1B16]">হোম</Link>
+          <span>/</span>
+          <Link href="/shop" className="hover:text-[#2B1B16]">শপ</Link>
+          <span>/</span>
+          <span className="text-[#2B1B16] font-semibold">শপিং ব্যাগ ({cartCount})</span>
+        </div>
+
+        <div className="rounded-3xl p-6 md:p-8 mb-8 text-white shadow-sm flex items-center justify-between"
+          style={{ background: "#2B1B16", border: "1px solid rgba(184,149,88,0.25)" }}>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-black text-[#F7F1E8]" style={{ fontFamily: "'Playfair Display', serif" }}>
+              আপনার শপিং ব্যাগ
+            </h1>
+            <p className="text-xs text-[#E7D7C4] mt-1">
+              ব্যাগে মোট {cartCount} টি ইসলামিক পণ্য রয়েছে
+            </p>
+          </div>
+          <div className="w-12 h-12 rounded-2xl bg-[#3A251E] border border-[#B89558]/30 flex items-center justify-center">
+            <ShoppingBag className="w-6 h-6 text-[#B89558]" />
+          </div>
         </div>
 
         {cart?.items?.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm p-12 text-center border border-dashed border-gray-200">
-            <ShoppingBag className="w-20 h-20 text-gray-400 mx-auto mb-6" />
-            <h2 className="text-2xl font-semibold text-gray-900 mb-3">Your cart is empty</h2>
-            <p className="text-gray-600 mb-8 text-lg">No items added yet. Start shopping!</p>
-            <Link 
-              href="/shop" 
-              className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-semibold shadow-lg transition-all duration-200"
+          <div className="bg-white rounded-3xl p-10 md:p-14 text-center border border-[#E7DED5] shadow-sm">
+            <div className="w-16 h-16 rounded-full bg-[#FAF6F0] flex items-center justify-center mx-auto mb-4 border border-[#E7DED5]">
+              <ShoppingBag className="w-8 h-8 text-[#80736B]" />
+            </div>
+            <h2 className="text-xl font-bold text-[#2B1B16] mb-2">আপনার কার্ট বর্তমানে খালি</h2>
+            <p className="text-xs md:text-sm text-[#80736B] mb-6">
+              পছন্দের পাঞ্জাবি, আতর, জায়নামাজ বা ইসলামিক উপহার নির্বাচন করে ব্যাগে যুক্ত করুন।
+            </p>
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white text-xs md:text-sm font-bold rounded-xl shadow-md transition-all"
+              style={{ background: "#2B1B16" }}
             >
-              Continue Shopping
-              <ArrowRight className="w-5 h-5" />
+              <span>পণ্য দেখতে যান</span>
+              <ArrowRight size={14} />
             </Link>
           </div>
         ) : (
-          <>
-            {/* Cart Items */}
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
-              <div className="px-6 py-4 border-b bg-gray-50">
-                <h2 className="text-xl font-bold text-gray-900">Your Items ({cart.items.length})</h2>
-              </div>
-              <div className="divide-y divide-gray-100">
-                {cart.items.map((item) => (
-                  <div key={item.product?._id || item.productId} className="p-6 hover:bg-gray-50">
-                    <div className="flex gap-4 items-start">
-                      {/* Image */}
-                      <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                        {item.product?.featuredImage ? (
-                          <Image
-                            src={item.product.featuredImage}
-                            alt={item.product?.name}
-                            width={96}
-                            height={96}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                            <ShoppingBag className="w-12 h-12 text-gray-400" />
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Details */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 mb-1 line-clamp-2">
-                          {item.product?.name || "Product"}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-4">
-                          {item.product?.category?.name || item.product?.category || "Category"}
-                        </p>
-                        
-                        {/* Quantity Controls */}
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1">
-                            <button
-                              onClick={() => updateQuantity(item.product?._id || item.productId, item.quantity - 1)}
-                              disabled={item.quantity <= 1}
-                              className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-gray-700 disabled:opacity-50 disabled:hover:text-gray-500 rounded-l-lg hover:bg-gray-50"
-                            >
-                              <Minus className="w-4 h-4" />
-                            </button>
-                            <span className="w-12 text-center py-2 font-semibold text-lg text-gray-900 px-4">
-                              {item.quantity}
-                            </span>
-                            <button
-                              onClick={() => updateQuantity(item.product?._id || item.productId, item.quantity + 1)}
-                              className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-r-lg hover:bg-gray-50"
-                            >
-                              <Plus className="w-4 h-4" />
-                            </button>
-                          </div>
-                          
-                          {/* Price */}
-                          <div className="text-right ml-auto">
-                            <p className="text-2xl font-bold text-blue-700">
-                              ৳{((item.product?.sellingPrice || 0) * item.quantity).toLocaleString()}
-                            </p>
-                            {item.quantity > 1 && (
-                              <p className="text-sm text-gray-500">
-                                ৳{item.product?.sellingPrice?.toLocaleString() || 0}/unit
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Remove */}
-                      <button
-                        onClick={() => removeFromCart(item.product?._id || item.productId)}
-                        className="flex-shrink-0 p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors group"
-                        title="Remove item"
-                      >
-                        <Trash2 className="w-6 h-6 group-hover:text-red-600" />
-                      </button>
+          <div className="space-y-6">
+
+            {/* Items List */}
+            <div className="bg-white rounded-3xl overflow-hidden border border-[#E7DED5] shadow-sm divide-y divide-[#E7DED5]">
+              {cart.items.map((item) => {
+                const prod = item.product || {};
+                const prodImg = prod.featuredImage || prod.images?.[0] || 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&q=80';
+                const price = prod.sellingPrice || prod.price || 0;
+
+                return (
+                  <div key={prod._id || item.productId} className="p-4 md:p-6 flex gap-4 items-center">
+                    {/* Image */}
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-[#FAF6F0] border border-[#E7DED5] flex-shrink-0">
+                      <img src={prodImg} alt={prod.nameBn || prod.name} className="w-full h-full object-cover" />
                     </div>
+
+                    {/* Details */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-xs md:text-sm text-[#2B1B16] line-clamp-1 mb-1">
+                        {prod.nameBn || prod.name}
+                      </h3>
+                      <p className="text-[11px] text-[#80736B] mb-2">
+                        একক মূল্য: ৳{price.toLocaleString()}
+                      </p>
+
+                      {/* Quantity Controller */}
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center border border-[#E7DED5] rounded-xl bg-[#FAF6F0]">
+                          <button
+                            onClick={() => updateQuantity(prod._id || item.productId, item.quantity - 1)}
+                            disabled={item.quantity <= 1}
+                            className="p-1.5 text-[#2B1B16] hover:bg-white rounded-l-xl transition-colors disabled:opacity-40"
+                          >
+                            <Minus size={13} />
+                          </button>
+                          <span className="w-8 text-center text-xs font-bold text-[#2B1B16]">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateQuantity(prod._id || item.productId, item.quantity + 1)}
+                            className="p-1.5 text-[#2B1B16] hover:bg-white rounded-r-xl transition-colors"
+                          >
+                            <Plus size={13} />
+                          </button>
+                        </div>
+
+                        <span className="font-black text-sm md:text-base text-[#2B1B16] ml-auto">
+                          ৳{(price * item.quantity).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Remove */}
+                    <button
+                      onClick={() => removeFromCart(prod._id || item.productId)}
+                      className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors ml-2"
+                      title="মুছে ফেলুন"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
-            {/* Summary & Actions */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Summary Card */}
-              <div className="bg-white rounded-xl shadow-sm p-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h3>
-                <div className="space-y-3 mb-8">
-                  <div className="flex justify-between text-lg">
-                    <span>Total Items:</span>
-                    <span>{cartCount}</span>
+            {/* Summary & Checkout Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+              <div className="bg-white rounded-3xl p-6 border border-[#E7DED5] shadow-sm">
+                <h3 className="font-bold text-sm text-[#2B1B16] mb-4">অর্ডার সংক্ষিপ্তসার</h3>
+                <div className="space-y-2 text-xs text-[#80736B] mb-4">
+                  <div className="flex justify-between">
+                    <span>মোট পণ্যের সংখ্যা:</span>
+                    <span className="font-bold text-[#2B1B16]">{cartCount} টি</span>
                   </div>
-                  <div className="flex justify-between text-lg">
-                    <span>Subtotal:</span>
-                    <span className="font-bold text-blue-700 text-xl">৳{cart?.total?.toLocaleString() || 0}</span>
+                  <div className="flex justify-between text-sm font-black text-[#2B1B16] pt-2 border-t border-[#E7DED5]">
+                    <span>সাবটোটাল:</span>
+                    <span>৳{subtotal.toLocaleString()}</span>
                   </div>
                 </div>
                 <button
                   onClick={clearCart}
-                  className="w-full py-3 px-6 border-2 border-red-200 text-red-700 font-semibold rounded-xl hover:border-red-300 hover:bg-red-50 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold transition-all flex items-center justify-center gap-1.5"
                 >
-                  <Trash2 className="w-5 h-5" />
-                  Clear Cart
+                  <Trash2 size={13} />
+                  <span>কার্ট সম্পূর্ণ খালি করুন</span>
                 </button>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col gap-4">
-                <Link
-                  href="/shop"
-                  className="block py-4 px-6 border-2 border-blue-200 text-blue-700 font-semibold rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all text-center flex items-center justify-center gap-2"
-                >
-                  ← Continue Shopping
-                </Link>
+              <div className="space-y-3">
                 <Link
                   href="/checkout"
-                  className="block py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all text-center flex items-center justify-center gap-2 text-lg"
+                  className="w-full py-4 px-6 rounded-2xl text-white font-bold text-sm text-center shadow-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-98 transition-all"
+                  style={{ background: "#2B1B16" }}
                 >
-                  Proceed to Checkout
-                  <ArrowRight className="w-5 h-5" />
+                  <span>চেকআউট ও অর্ডারে এগিয়ে যান</span>
+                  <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/shop"
+                  className="w-full py-3 px-6 rounded-2xl border border-[#E7DED5] bg-white text-[#2B1B16] font-bold text-xs text-center block hover:bg-[#F7F1E8] transition-all"
+                >
+                  ← আরও ইসলামিক পণ্য দেখুন
                 </Link>
               </div>
             </div>
-          </>
+
+          </div>
         )}
+
       </div>
     </div>
   );
 }
-

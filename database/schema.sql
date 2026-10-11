@@ -1,10 +1,10 @@
 -- ============================================
--- STELLARMARTBD DATABASE SCHEMA
+-- THAWBIN ISLAMIC E-COMMERCE DATABASE SCHEMA
 -- ============================================
 
 -- Create Database
-CREATE DATABASE IF NOT EXISTS stellarmartbd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE stellarmartbd;
+CREATE DATABASE IF NOT EXISTS thawbin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE thawbin;
 
 -- ============================================
 -- USERS TABLE

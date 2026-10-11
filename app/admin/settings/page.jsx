@@ -34,48 +34,48 @@ export default function SettingsPage() {
 
   const [settings, setSettings] = useState({
     // General
-    siteName: 'StellarMart',
-    siteDescription: 'Your one-stop shop for electronics and more',
-    siteUrl: 'https://stellarmart.com',
+    siteName: 'Thawbin',
+    siteDescription: 'প্রিমিয়াম ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন অনলাইন স্টোর',
+    siteUrl: 'https://thawbin.com',
     logo: '',
     favicon: '',
     timezone: 'Asia/Dhaka',
-    language: 'en',
+    language: 'bn',
     
     // Store
     currency: 'BDT',
     currencySymbol: '৳',
-    taxRate: 5,
-    shippingCost: 50,
-    freeShippingThreshold: 1000,
+    taxRate: 0,
+    shippingCost: 60,
+    freeShippingThreshold: 3000,
     minOrderAmount: 100,
     
     // Contact
-    contactEmail: 'support@stellarmart.com',
-    contactPhone: '+880 1234 567890',
-    contactAddress: '123 Commerce Street, Dhaka, Bangladesh',
-    workingHours: '9:00 AM - 10:00 PM',
+    contactEmail: 'support@thawbin.com',
+    contactPhone: '+880 1700 000000',
+    contactAddress: 'ঢাকা, বাংলাদেশ',
+    workingHours: '10:00 AM - 8:00 PM',
     
     // Email
     smtpHost: 'smtp.example.com',
     smtpPort: '587',
-    smtpUser: 'noreply@stellarmart.com',
+    smtpUser: 'noreply@thawbin.com',
     smtpPassword: '',
-    emailFromName: 'StellarMart',
-    emailFromEmail: 'noreply@stellarmart.com',
+    emailFromName: 'Thawbin',
+    emailFromEmail: 'noreply@thawbin.com',
     
     // Payment
-    bkashNumber: '8801234567890',
-    nagadNumber: '8801234567890',
-    bankName: 'Bangladesh Bank',
+    bkashNumber: '01700000000',
+    nagadNumber: '01700000000',
+    bankName: 'Islami Bank Bangladesh',
     accountNumber: '1234567890',
-    accountName: 'StellarMart Ltd',
+    accountName: 'Thawbin Lifestyle',
     
     // Social
-    facebookUrl: 'https://facebook.com/stellarmart',
-    twitterUrl: 'https://twitter.com/stellarmart',
-    instagramUrl: 'https://instagram.com/stellarmart',
-    youtubeUrl: 'https://youtube.com/stellarmart',
+    facebookUrl: 'https://facebook.com/thawbin',
+    twitterUrl: 'https://twitter.com/thawbin',
+    instagramUrl: 'https://instagram.com/thawbin',
+    youtubeUrl: 'https://youtube.com/thawbin',
     
     // Maintenance
     maintenanceMode: false,

@@ -55,12 +55,12 @@ export default function CartDrawer({ isOpen, onClose, cart, loading, updateQuant
               <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: '#EFE2D4' }}>
                 <ShoppingBag className="w-8 h-8" style={{ color: '#3E2723' }} />
               </div>
-              <p className="font-bold" style={{ color: '#2B211D' }}>Your cart is empty</p>
-              <p className="text-sm" style={{ color: '#80736B' }}>Add some desks to get started</p>
+              <p className="font-bold" style={{ color: '#2B211D' }}>আপনার ব্যাগ খালি</p>
+              <p className="text-sm" style={{ color: '#80736B' }}>পছন্দের ইসলামিক পণ্য ব্যাগে যুক্ত করুন</p>
               <Link href="/shop" onClick={onClose}
                 className="mt-2 px-5 py-2 rounded-xl text-sm font-bold text-white"
-                style={{ background: '#3E2723' }}>
-                Shop Now
+                style={{ background: '#2B1B16' }}>
+                কেনাকাটা করুন
               </Link>
             </div>
           ) : (

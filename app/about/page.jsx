@@ -1,78 +1,90 @@
 import Link from 'next/link';
-import { Truck, Shield, Star, Headphones, Store, Users, Award } from 'lucide-react';
+import { Truck, ShieldCheck, HeartHandshake, Headphones, Sparkles, BookOpen, Gift } from 'lucide-react';
+
+export const metadata = {
+  title: 'আমাদের সম্পর্কে — Thawbin (থওবিন)',
+  description: 'Thawbin সম্পর্কে জানুন — বাংলাদেশী বিশ্বস্ত ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন অনলাইন স্টোর।',
+};
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">About StellarMartBD</h1>
-          <p className="text-blue-100 text-lg">Your Trusted Online Shopping Destination in Bangladesh</p>
-        </div>
-      </div>
+    <div className="min-h-screen py-10 md:py-16" style={{ background: '#FAF6F0', color: '#2A211D' }}>
+      <div className="max-w-4xl mx-auto px-4">
 
-      {/* About Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Who We Are</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            StellarMartBD is Bangladesh's leading online shopping platform, offering a wide range of products 
-            including electronics, fashion, home & living, sports equipment, beauty products, and books. 
-            We are committed to providing our customers with the best shopping experience possible.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            With thousands of products from trusted brands, fast delivery, secure payment options, 
-            and excellent customer support, StellarMartBD has become the go-to destination for 
-            online shoppers across Bangladesh.
+        {/* Hero Banner */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-3 tracking-wider text-white"
+            style={{ background: '#B89558' }}>
+            <Sparkles size={12} />
+            <span>আমাদের পরিচিতি</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-black text-[#2B1B16] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Thawbin — ইসলামিক পণ্যের বিশ্বস্ত ঠিকানা
+          </h1>
+          <p className="text-sm md:text-base text-[#80736B] max-w-2xl mx-auto leading-relaxed">
+            শালীন পোশাক, খাঁটি সুবাস ও ইবাদতের প্রয়োজনীয় সামগ্রী নিয়ে আপনার পাশে।
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6 text-center">
-            <Store className="w-10 h-10 text-blue-600 mx-auto mb-3" />
-            <p className="text-3xl font-bold text-gray-900">10,000+</p>
-            <p className="text-gray-600">Products</p>
+        {/* Brand Mission */}
+        <div className="bg-white rounded-3xl p-6 md:p-10 border border-[#E7DED5] shadow-sm mb-8 space-y-4 text-xs md:text-sm leading-relaxed">
+          <h2 className="text-xl md:text-2xl font-bold text-[#2B1B16]">
+            আমাদের লক্ষ্য ও উদ্দেশ্য
+          </h2>
+          <p className="text-[#2A211D]">
+            থওবিন (Thawbin) বাংলাদেশের মুসলিম গ্রাহকদের জন্য নিবেদিত একটি ইসলামিক লাইফস্টাইল ও ফ্যাশন প্ল্যাটফর্ম।
+            আমরা বিশ্বাস করি দৈনন্দিন জীবনে শালীনতা এবং সুন্নাহভিত্তিক জীবনাচরণ মানব জীবনকে শান্তিময় করে তোলে।
+          </p>
+          <p className="text-[#80736B]">
+            আমাদের সংগ্রহে রয়েছে খাঁটি সুতি কাপড়ে তৈরি আরামদায়ক পাঞ্জাবি ও জুব্বা, ১০০% অ্যালকোহলমুক্ত দেহন আল উদ ও কস্তুরী আতর,
+            তুরস্কের নরম ভেলভেট জায়নামাজ, প্রাকৃতিক কাঠের তসবিহ, প্রামাণ্য ইসলামিক গ্রন্থাবলী এবং প্রিয়জনকে উপহার দেওয়ার মতো সুসজ্জিত ইসলামিক উপহার সামগ্রী।
+          </p>
+        </div>
+
+        {/* Genuine Core Values */}
+        <div className="grid md:grid-cols-3 gap-4 mb-10">
+          <div className="p-6 rounded-2xl bg-white border border-[#E7DED5] text-center shadow-xs">
+            <div className="w-12 h-12 rounded-xl bg-[#F7F1E8] flex items-center justify-center mx-auto mb-3 text-[#B89558]">
+              <ShieldCheck size={24} />
+            </div>
+            <h3 className="font-bold text-sm text-[#2B1B16] mb-1">খাঁটি ও নির্ভরযোগ্য পণ্য</h3>
+            <p className="text-xs text-[#80736B] leading-relaxed">
+              সরাসরি পরীক্ষিত কাপড় ও অ্যালকোহলমুক্ত সুবাসের নিশ্চয়তা।
+            </p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm p-6 text-center">
-            <Users className="w-10 h-10 text-green-600 mx-auto mb-3" />
-            <p className="text-3xl font-bold text-gray-900">50,000+</p>
-            <p className="text-gray-600">Customers</p>
+
+          <div className="p-6 rounded-2xl bg-white border border-[#E7DED5] text-center shadow-xs">
+            <div className="w-12 h-12 rounded-xl bg-[#F7F1E8] flex items-center justify-center mx-auto mb-3 text-[#B89558]">
+              <Truck size={24} />
+            </div>
+            <h3 className="font-bold text-sm text-[#2B1B16] mb-1">সারাদেশে হোম ডেলিভারি</h3>
+            <p className="text-xs text-[#80736B] leading-relaxed">
+              ক্যাশ অন ডেলিভারি সুবিধা সহ দ্রুত ও নিরাপদ ডেলিভারি।
+            </p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm p-6 text-center">
-            <Truck className="w-10 h-10 text-orange-600 mx-auto mb-3" />
-            <p className="text-3xl font-bold text-gray-900">64</p>
-            <p className="text-gray-600">Districts</p>
-          </div>
-          <div className="bg-white rounded-xl shadow-sm p-6 text-center">
-            <Award className="w-10 h-10 text-purple-600 mx-auto mb-3" />
-            <p className="text-3xl font-bold text-gray-900">4.8+</p>
-            <p className="text-gray-600">Rating</p>
+
+          <div className="p-6 rounded-2xl bg-white border border-[#E7DED5] text-center shadow-xs">
+            <div className="w-12 h-12 rounded-xl bg-[#F7F1E8] flex items-center justify-center mx-auto mb-3 text-[#B89558]">
+              <HeartHandshake size={24} />
+            </div>
+            <h3 className="font-bold text-sm text-[#2B1B16] mb-1">স্বচ্ছ সেবা ও আন্তরিকতা</h3>
+            <p className="text-xs text-[#80736B] leading-relaxed">
+              পণ্য প্রাপ্তি থেকে শুরু করে যেকোনো প্রয়োজনে সহযোগিতাপূর্ণ কাস্টমার সাপোর্ট।
+            </p>
           </div>
         </div>
 
-        {/* Why Choose Us */}
-        <div className="bg-white rounded-xl shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Choose StellarMartBD?</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-4">
-              <Truck className="w-12 h-12 text-blue-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Fast Delivery</h3>
-              <p className="text-gray-600 text-sm">Free shipping on orders over ৳500 with express delivery options</p>
-            </div>
-            <div className="text-center p-4">
-              <Shield className="w-12 h-12 text-green-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Secure Payment</h3>
-              <p className="text-gray-600 text-sm">Multiple payment methods including bKash, Nagad, and cards</p>
-            </div>
-            <div className="text-center p-4">
-              <Headphones className="w-12 h-12 text-orange-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">24/7 Support</h3>
-              <p className="text-gray-600 text-sm">Round-the-clock customer support for any queries</p>
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="text-center">
+          <Link
+            href="/shop"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-xs md:text-sm text-white shadow-md transition-all hover:scale-105"
+            style={{ background: '#2B1B16' }}
+          >
+            <span>আমাদের পণ্য সংগ্রহ দেখুন</span>
+          </Link>
         </div>
+
       </div>
     </div>
   );

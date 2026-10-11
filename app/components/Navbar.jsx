@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
-import { ShoppingBag, Heart, Search, User, Headphones, Menu, X, LogOut, Home, LayoutGrid } from "lucide-react";
+import { ShoppingBag, Heart, Search, User, Menu, X, LogOut, Home, LayoutGrid, Sparkles } from "lucide-react";
 import CartDrawer from "./CartDrawer";
 import { useCategories } from "../context/CategoryContext";
 
@@ -14,6 +14,7 @@ export default function Navbar() {
   const { isSidebarOpen, toggleSidebar } = useCategories();
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState("Thawbin-এ স্বাগতম — আপনার পছন্দের ইসলামিক পণ্য এখন একসাথে।");
 
   useEffect(() => {
     if (cartOpen || isSidebarOpen) {
@@ -30,126 +31,130 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { href: "/shop", label: "Shop" },
-    { href: "/categories", label: "Categories" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: "হোম" },
+    { href: "/shop", label: "সকল পণ্য" },
+    { href: "/category/panjabi", label: "পাঞ্জাবি" },
+    { href: "/category/attar", label: "আতর" },
+    { href: "/category/topi", label: "টুপি" },
+    { href: "/category/prayer-mats", label: "জায়নামাজ" },
+    { href: "/category/tasbih", label: "তসবিহ" },
+    { href: "/category/quran-and-books", label: "কুরআন ও বই" },
+    { href: "/category/hijab-and-abaya", label: "হিজাব ও আবায়া" },
+    { href: "/category/islamic-gifts", label: "ইসলামিক গিফট" },
+    { href: "/category/ramadan-and-eid", label: "রমজান ও ঈদ" },
   ];
 
   return (
     <>
-      {/* ── Desktop Navigation ─────────────────────────────────────── */}
+      {/* ── Section 1: Slim Announcement Bar ──────────────────────── */}
+      <div className="border-b" style={{ borderColor: "#E7DED5", background: "#2B1B18" }}>
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-9 text-xs" style={{ color: "#E7D7C4" }}>
+          <div className="flex items-center gap-2 truncate">
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#B89558" }}></span>
+            <span className="font-medium tracking-wide">{announcement}</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-5 text-xs flex-shrink-0">
+            <span className="text-[#B89558] font-bold">সারাদেশে দ্রুত হোম ডেলিভারি ৳</span>
+            <Link href="/orders" className="hover:text-white transition-colors">অর্ডার ট্র্যাকিং</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">যোগাযোগ</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 2: Header and Desktop Navigation ────────────────── */}
       <nav className="hidden md:block sticky top-0 z-50"
         style={{
           background: "#FFFFFF",
           borderBottom: "1px solid #E7DED5",
-          boxShadow: "0 2px 16px rgba(62,39,35,0.08)",
+          boxShadow: "0 2px 16px rgba(43,27,24,0.06)",
         }}>
-
-        {/* Top strip */}
-        <div className="border-b" style={{ borderColor: "#E7DED5", background: "#FAF6F0" }}>
-          <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8 text-xs" style={{ color: "#80736B" }}>
-            <span>Premium Furniture & Adjustable Desks — Crafted for Bangladesh</span>
-            <div className="flex items-center gap-4">
-              <Link href="/contact" className="hover:text-[#3E2723] transition-colors">Support</Link>
-              <Link href="/orders" className="hover:text-[#3E2723] transition-colors">Track Order</Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Main bar */}
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16 gap-6">
+          <div className="flex items-center justify-between h-16 gap-5">
 
-            {/* Logo */}
+            {/* Thawbin Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
-                style={{ background: "linear-gradient(135deg, #3E2723, #795548)" }}>
-                <ShoppingBag className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
+                style={{ background: "linear-gradient(135deg, #2B1B16, #3A251E)" }}>
+                <ShoppingBag className="w-5 h-5 text-[#B89558]" />
               </div>
-              <span className="text-2xl font-black tracking-tight" style={{ color: "#3E2723", fontFamily: "'Playfair Display', serif" }}>
-                THAWBIN
-              </span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black tracking-tight" style={{ color: "#2B1B16", fontFamily: "'Playfair Display', serif" }}>
+                  THAWBIN
+                </span>
+                <span className="text-[9px] -mt-1 font-bold tracking-widest text-[#B89558] uppercase">
+                  Islamic Lifestyle
+                </span>
+              </div>
             </Link>
 
-            {/* Nav links */}
-            <div className="flex items-center gap-1">
-              {navLinks.map(link => (
-                <Link key={link.href} href={link.href}
-                  className="px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:bg-[#EFE2D4]"
-                  style={{ color: "#2B211D" }}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Search */}
-            <div className="flex-1 max-w-md">
-              <form action="/search" className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#80736B" }} />
+            {/* Search Bar for Islamic Products */}
+            <div className="flex-1 max-w-lg">
+              <form action="/search" method="GET" className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#80736B" }} />
                 <input
-                  type="text" name="q"
-                  placeholder="Search desks, furniture..."
-                  className="w-full pl-9 pr-24 py-2.5 text-sm rounded-xl focus:outline-none transition-all"
+                  type="text"
+                  name="q"
+                  placeholder="পাঞ্জাবি, আতর, জায়নামাজ, কুরআন শরীফ খুঁজুন..."
+                  className="w-full pl-10 pr-24 py-2.5 text-sm rounded-xl focus:outline-none transition-all"
                   style={{
-                    background: "#FAF6F0",
+                    background: "#F7F1E8",
                     border: "1.5px solid #E7DED5",
-                    color: "#2B211D",
+                    color: "#2A211D",
                   }}
-                  onFocus={e => { e.target.style.borderColor = "#C49A6C"; e.target.style.boxShadow = "0 0 0 3px rgba(196,154,108,0.12)"; }}
+                  onFocus={e => { e.target.style.borderColor = "#B89558"; e.target.style.boxShadow = "0 0 0 3px rgba(184,149,88,0.15)"; }}
                   onBlur={e => { e.target.style.borderColor = "#E7DED5"; e.target.style.boxShadow = "none"; }}
                 />
                 <button type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-xs font-bold text-white transition-all"
-                  style={{ background: "#3E2723" }}>
-                  Search
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90"
+                  style={{ background: "#2B1B16" }}>
+                  অনুসন্ধান
                 </button>
               </form>
             </div>
 
-            {/* Actions */}
+            {/* Actions: Wishlist, Cart, Account */}
             <div className="flex items-center gap-2">
               {/* Wishlist */}
               <Link href="/wishlist"
-                className="relative p-2.5 rounded-xl transition-all hover:bg-[#EFE2D4]"
-                title="Wishlist">
-                <Heart className="w-5 h-5" style={{ color: "#3E2723" }} />
+                className="relative p-2.5 rounded-xl transition-all hover:bg-[#F7F1E8]"
+                title="পছন্দের তালিকা">
+                <Heart className="w-5 h-5" style={{ color: "#2B1B16" }} />
               </Link>
 
-              {/* Cart */}
+              {/* Shopping Cart */}
               <button onClick={() => setCartOpen(true)}
-                className="relative p-2.5 rounded-xl transition-all hover:bg-[#EFE2D4]"
-                title="Cart">
-                <ShoppingBag className="w-5 h-5" style={{ color: "#3E2723" }} />
+                className="relative p-2.5 rounded-xl transition-all hover:bg-[#F7F1E8]"
+                title="শপিং ব্যাগ">
+                <ShoppingBag className="w-5 h-5" style={{ color: "#2B1B16" }} />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 text-white text-xs rounded-full flex items-center justify-center font-bold"
-                    style={{ background: "#C49A6C" }}>
+                    style={{ background: "#B89558" }}>
                     {cartCount}
                   </span>
                 )}
               </button>
 
-              {/* Auth */}
+              {/* Account & Login */}
               {!authLoading && (
                 user ? (
                   <div className="flex items-center gap-1.5">
                     <Link href="/profile"
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90"
-                      style={{ background: "#3E2723" }}>
-                      <User className="w-4 h-4" />
-                      {user.name?.split(" ")[0] || "Profile"}
+                      style={{ background: "#2B1B16" }}>
+                      <User className="w-4 h-4 text-[#B89558]" />
+                      {user.name?.split(" ")[0] || "অ্যাকাউন্ট"}
                     </Link>
                     <button onClick={handleLogout}
-                      className="p-2 rounded-xl transition-all hover:bg-[#EFE2D4]"
-                      style={{ color: "#3E2723" }} title="Logout">
+                      className="p-2 rounded-xl transition-all hover:bg-[#F7F1E8]"
+                      style={{ color: "#2B1B16" }} title="লগআউট">
                       <LogOut className="w-5 h-5" />
                     </button>
                   </div>
                 ) : (
                   <Link href="/login"
                     className="px-4 py-2 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90"
-                    style={{ background: "#3E2723" }}>
-                    Sign In
+                    style={{ background: "#2B1B16" }}>
+                    লগইন / সাইন আপ
                   </Link>
                 )
               )}
@@ -160,30 +165,33 @@ export default function Navbar() {
 
       {/* ── Mobile Top Bar ─────────────────────────────────────────── */}
       <div className="md:hidden sticky top-0 z-50"
-        style={{ background: "#FFFFFF", borderBottom: "1px solid #E7DED5", boxShadow: "0 2px 12px rgba(62,39,35,0.08)" }}>
-        <div className="flex items-center justify-between px-4 py-3">
+        style={{ background: "#FFFFFF", borderBottom: "1px solid #E7DED5", boxShadow: "0 2px 12px rgba(43,27,24,0.06)" }}>
+        <div className="flex items-center justify-between px-4 py-2.5">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: "#3E2723" }}>
-              <ShoppingBag className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ background: "#2B1B16" }}>
+              <ShoppingBag className="w-4 h-4 text-[#B89558]" />
             </div>
-            <span className="text-xl font-black tracking-tight" style={{ color: "#3E2723", fontFamily: "'Playfair Display', serif" }}>
-              THAWBIN
-            </span>
+            <div>
+              <span className="text-xl font-black tracking-tight leading-none" style={{ color: "#2B1B16", fontFamily: "'Playfair Display', serif" }}>
+                THAWBIN
+              </span>
+            </div>
           </Link>
 
           <div className="flex items-center gap-2">
             <button onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 rounded-lg transition-all hover:bg-[#EFE2D4]">
+              className="p-2 rounded-lg transition-all hover:bg-[#F7F1E8]"
+              aria-label="Search">
               {searchOpen
-                ? <X className="w-5 h-5" style={{ color: "#3E2723" }} />
-                : <Search className="w-5 h-5" style={{ color: "#3E2723" }} />}
+                ? <X className="w-5 h-5" style={{ color: "#2B1B16" }} />
+                : <Search className="w-5 h-5" style={{ color: "#2B1B16" }} />}
             </button>
             <button onClick={toggleSidebar}
-              className="p-2 rounded-lg transition-all hover:bg-[#EFE2D4]"
-              aria-label="Categories">
-              <Menu className="w-5 h-5" style={{ color: "#3E2723" }} />
+              className="p-2 rounded-lg transition-all hover:bg-[#F7F1E8]"
+              aria-label="ক্যাটাগরি মেনু">
+              <Menu className="w-5 h-5" style={{ color: "#2B1B16" }} />
             </button>
           </div>
         </div>
@@ -191,19 +199,20 @@ export default function Navbar() {
         {/* Expandable Search */}
         {searchOpen && (
           <div className="px-4 pb-3">
-            <form action="/search" className="relative">
+            <form action="/search" method="GET" className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#80736B" }} />
               <input
-                type="text" name="q"
-                placeholder="Search desks, furniture..."
+                type="text"
+                name="q"
+                placeholder="পাঞ্জাবি, আতর, জায়নামাজ খুঁজুন..."
                 className="w-full pl-9 pr-16 py-2.5 text-sm rounded-xl focus:outline-none"
-                style={{ background: "#FAF6F0", border: "1.5px solid #C49A6C", color: "#2B211D" }}
+                style={{ background: "#F7F1E8", border: "1.5px solid #B89558", color: "#2A211D" }}
                 autoFocus
               />
               <button type="submit"
                 className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-xs font-bold text-white"
-                style={{ background: "#3E2723" }}>
-                Go
+                style={{ background: "#2B1B16" }}>
+                খুঁজুন
               </button>
             </form>
           </div>
@@ -213,24 +222,24 @@ export default function Navbar() {
       {/* ── Mobile Bottom Navigation Bar ────────────────────────────── */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 shadow-[0_-4px_24px_rgba(43,27,24,0.3)]"
         style={{
-          background: "#2B1B18",
-          borderTop: "1px solid rgba(196,154,108,0.25)",
+          background: "#2B1B16",
+          borderTop: "1px solid rgba(184,149,88,0.25)",
           paddingBottom: "env(safe-area-inset-bottom, 0px)"
         }}>
         <div className="flex items-center justify-around py-2 px-1 max-w-md mx-auto">
 
           {/* Home */}
           <Link href="/"
-            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#FAF6F0]/75 hover:text-[#C49A6C]">
+            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#F7F1E8]/80 hover:text-[#B89558]">
             <Home className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] font-semibold tracking-wide">Home</span>
+            <span className="text-[10px] font-semibold tracking-wide">হোম</span>
           </Link>
 
           {/* Shop */}
           <Link href="/shop"
-            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#FAF6F0]/75 hover:text-[#C49A6C]">
+            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#F7F1E8]/80 hover:text-[#B89558]">
             <LayoutGrid className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] font-semibold tracking-wide">Shop</span>
+            <span className="text-[10px] font-semibold tracking-wide">সকল পণ্য</span>
           </Link>
 
           {/* Cart — Raised Center Button */}
@@ -239,15 +248,15 @@ export default function Navbar() {
               onClick={() => setCartOpen(true)}
               className="relative w-14 h-14 rounded-full flex items-center justify-center active:scale-95 transition-all"
               style={{
-                background: "linear-gradient(135deg, #C49A6C 0%, #8D5B32 100%)",
-                boxShadow: "0 6px 20px rgba(196,154,108,0.5)",
-                border: "3.5px solid #2B1B18"
+                background: "linear-gradient(135deg, #B89558 0%, #3A251E 100%)",
+                boxShadow: "0 6px 20px rgba(184,149,88,0.4)",
+                border: "3.5px solid #2B1B16"
               }}
               aria-label="Open Cart"
             >
               <ShoppingBag className="w-6 h-6 text-white" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 text-white text-[10px] rounded-full flex items-center justify-center font-bold bg-[#3E2723] border border-[#C49A6C]">
+                <span className="absolute -top-1 -right-1 w-5 h-5 text-white text-[10px] rounded-full flex items-center justify-center font-bold bg-[#2B1B16] border border-[#B89558]">
                   {cartCount}
                 </span>
               )}
@@ -256,16 +265,16 @@ export default function Navbar() {
 
           {/* Wishlist */}
           <Link href="/wishlist"
-            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#FAF6F0]/75 hover:text-[#C49A6C]">
+            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#F7F1E8]/80 hover:text-[#B89558]">
             <Heart className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] font-semibold tracking-wide">Wishlist</span>
+            <span className="text-[10px] font-semibold tracking-wide">উইশলিস্ট</span>
           </Link>
 
           {/* Account */}
           <Link href={user ? "/profile" : "/login"}
-            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#FAF6F0]/75 hover:text-[#C49A6C]">
+            className="flex flex-col items-center justify-center flex-1 py-1 transition-all active:scale-95 text-[#F7F1E8]/80 hover:text-[#B89558]">
             <User className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] font-semibold tracking-wide">{user ? "Account" : "Sign In"}</span>
+            <span className="text-[10px] font-semibold tracking-wide">{user ? "প্রোফাইল" : "লগইন"}</span>
           </Link>
 
         </div>

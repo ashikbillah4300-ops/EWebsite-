@@ -34,7 +34,7 @@ html, body {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Hind Siliguri', 'Inter', system-ui, sans-serif;
   background-color: var(--choco-cream);
   color: var(--choco-text);
   -webkit-font-smoothing: antialiased;
@@ -46,17 +46,6 @@ body {
 /* Scrollbar hidden */
 body::-webkit-scrollbar { display: none; }
 body { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* No top margin resets */
-body, html { margin-top: 0 !important; padding-top: 0 !important; }
-main { margin-top: 0 !important; padding-top: 0 !important; }
-main > *:first-child { margin-top: 0 !important; padding-top: 0 !important; }
-section { margin-top: 0; }
-
-@media (max-width: 767px) {
-  main > *:first-child { margin-top: -20px !important; padding-top: 0 !important; }
-  section:first-of-type { padding-top: 0 !important; }
-}
 
 /* ============================================================
    Typography

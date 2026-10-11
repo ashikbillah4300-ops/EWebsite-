@@ -1,83 +1,75 @@
 import Link from 'next/link';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { ISLAMIC_CATEGORIES } from '@/lib/islamicCatalog';
 
-async function getCategories() {
-  try {
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/categories?active=true`, { 
-      cache: 'no-store' 
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.categories || [];
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-}
+export const metadata = {
+  title: 'সকল ইসলামিক ক্যাটাগরি — Thawbin',
+  description: 'Thawbin-এর সকল অনুমোদিত ইসলামিক ক্যাটাগরি ব্রাউজ করুন। পাঞ্জাবি, আতর, জায়নামাজ, টুপি, তসবিহ, কুরআন ও ইসলামিক বই।',
+};
 
-// Default categories in case API fails
-const defaultCategories = [
-  { name: 'Electronics', slug: 'electronics', icon: '📱', image: '/categories/electronics.jpg' },
-  { name: 'Fashion', slug: 'fashion', icon: '👔', image: '/categories/fashion.jpg' },
-  { name: 'Home & Living', slug: 'home-living', icon: '🏠', image: '/categories/home.jpg' },
-  { name: 'Sports', slug: 'sports', icon: '⚽', image: '/categories/sports.jpg' },
-  { name: 'Beauty', slug: 'beauty', icon: '💄', image: '/categories/beauty.jpg' },
-  { name: 'Books', slug: 'books', icon: '📚', image: '/categories/books.jpg' },
-  { name: 'Toys & Games', slug: 'toys', icon: '🎮', image: '/categories/toys.jpg' },
-  { name: 'Food & Grocery', slug: 'food', icon: '🍎', image: '/categories/food.jpg' },
-];
-
-export default async function CategoriesPage() {
-  const categories = await getCategories();
-  const displayCategories = categories.length > 0 ? categories : defaultCategories;
-
+export default function CategoriesPage() {
   return (
-    <>
-      <div className="min-h-screen bg-gray-50">
-        <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-12">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-3xl font-bold mb-2">All Categories</h1>
-            <p className="text-green-100">Browse our wide range of products</p>
+    <div className="min-h-screen py-8 md:py-14" style={{ background: '#FAF6F0', color: '#2A211D' }}>
+      <div className="max-w-7xl mx-auto px-4">
+
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-3 tracking-wider text-white"
+            style={{ background: '#B89558' }}>
+            <Sparkles size={12} />
+            <span>ইসলামিক সংগ্রহ</span>
           </div>
+          <h1 className="text-3xl md:text-5xl font-black mb-3 text-[#2B1B16]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            সকল ইসলামিক ক্যাটাগরি
+          </h1>
+          <p className="text-xs md:text-sm text-[#80736B]">
+            আপনার প্রয়োজনীয় পণ্য সহজে খুঁজে নিতে নিচের ইসলামিক ক্যাটাগরিগুলো থেকে নির্বাচন করুন
+          </p>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="flex items-center gap-2 mb-6 text-sm">
-            <Link href="/" className="text-blue-600 hover:underline">Home</Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-700">Categories</span>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {displayCategories.map((cat) => (
-              <Link 
-                key={cat.slug} 
-                href={`/category/${cat.slug}`}
-                className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group"
-              >
-                <div className="aspect-square bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                  <span className="text-6xl group-hover:scale-110 transition-transform">
-                    {cat.icon || '📦'}
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {ISLAMIC_CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/category/${cat.slug}`}
+              className="group bg-white rounded-3xl p-5 border border-[#E7DED5] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+            >
+              <div>
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-[#F7F1E8]">
+                  <img
+                    src={cat.image}
+                    alt={cat.nameBn}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                  />
+                  <span className="absolute top-2.5 right-2.5 text-2xl p-2 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm">
+                    {cat.icon}
                   </span>
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-bold text-lg text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                    {cat.name_en || cat.name}
-                  </h3>
-                  {cat.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2">{cat.description}</p>
-                  )}
-                  {cat.is_featured && (
-                    <span className="inline-block mt-2 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded">
-                      Featured
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
+
+                <h3 className="font-bold text-base md:text-lg text-[#2B1B16] group-hover:text-[#B89558] transition-colors mb-1">
+                  {cat.nameBn}
+                </h3>
+                <p className="text-[11px] font-semibold text-[#80736B] uppercase tracking-wider mb-2">
+                  {cat.name}
+                </p>
+                <p className="text-xs text-[#80736B] line-clamp-2 leading-relaxed mb-4">
+                  {cat.description}
+                </p>
+              </div>
+
+              {/* Subcategories preview */}
+              <div className="pt-3 border-t border-[#E7DED5] flex items-center justify-between text-xs font-bold text-[#B89558]">
+                <span>{cat.subcategories?.length || 0} টি সাবক্যাটাগরি</span>
+                <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  দেখুন <ArrowRight size={13} />
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
+
       </div>
-    </>
+    </div>
   );
 }

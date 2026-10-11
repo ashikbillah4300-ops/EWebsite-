@@ -26,9 +26,9 @@ export default function PageLogsPage() {
   const pageLogs = [
     { id: 1, page: '/', title: 'Home', views: 1250, uniqueVisitors: 890, avgTime: '2:45', device: 'mobile', date: '2024-01-15', userType: 'guest' },
     { id: 2, page: '/shop', title: 'Shop', views: 980, uniqueVisitors: 720, avgTime: '3:12', device: 'desktop', date: '2024-01-15', userType: 'guest' },
-    { id: 3, page: '/product/wireless-headphones', title: 'Wireless Headphones', views: 456, uniqueVisitors: 380, avgTime: '4:30', device: 'mobile', date: '2024-01-15', userType: 'guest' },
+    { id: 3, page: '/product/royal-navy-premium-kabli-panjabi', title: 'Royal Navy Kabli Panjabi', views: 456, uniqueVisitors: 380, avgTime: '4:30', device: 'mobile', date: '2024-01-15', userType: 'guest' },
     { id: 4, page: '/cart', title: 'Cart', views: 340, uniqueVisitors: 290, avgTime: '1:45', device: 'desktop', date: '2024-01-15', userType: 'guest' },
-    { id: 5, page: '/category/electronics', title: 'Electronics', views: 520, uniqueVisitors: 410, avgTime: '2:55', device: 'tablet', date: '2024-01-15', userType: 'guest' },
+    { id: 5, page: '/category/panjabi', title: 'Panjabi Collection', views: 520, uniqueVisitors: 410, avgTime: '2:55', device: 'tablet', date: '2024-01-15', userType: 'guest' },
     { id: 6, page: '/about', title: 'About Us', views: 180, uniqueVisitors: 165, avgTime: '1:20', device: 'mobile', date: '2024-01-15', userType: 'guest' },
     { id: 7, page: '/contact', title: 'Contact', views: 145, uniqueVisitors: 130, avgTime: '2:10', device: 'desktop', date: '2024-01-15', userType: 'guest' },
     { id: 8, page: '/search', title: 'Search', views: 290, uniqueVisitors: 250, avgTime: '1:55', device: 'mobile', date: '2024-01-15', userType: 'guest' },

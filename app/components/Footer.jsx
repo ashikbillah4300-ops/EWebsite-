@@ -1,126 +1,185 @@
 import Link from 'next/link';
-import { ShoppingBag, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
-
-const footerLinks = {
-  important: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Track Order', href: '/orders' },
-    { label: 'File a Complaint', href: '/contact' },
-    { label: 'Return & Refund Policy', href: '/privacy' },
-    { label: 'Corporate Orders', href: '/contact' },
-    { label: 'Terms & Conditions', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' },
-  ],
-};
+import { ShoppingBag, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Sparkles } from 'lucide-react';
+import { ISLAMIC_CATEGORIES } from '@/lib/islamicCatalog';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#2B1B18' }}>
-      {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+    <footer style={{ background: '#2B1B16', color: '#E7D7C4' }}>
+      {/* ── Main Footer Grid ───────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
 
-          {/* Col 1 — Brand */}
-          <div>
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #3E2723, #C49A6C)' }}>
+          {/* Col 1: Brand Introduction & Description */}
+          <div className="md:col-span-1">
+            <Link href="/" className="flex items-center gap-2.5 mb-4 group">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #3A251E, #B89558)' }}
+              >
                 <ShoppingBag className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl font-black tracking-tight text-white"
-                style={{ fontFamily: "'Playfair Display', serif" }}>
-                THAWBIN
-              </span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black tracking-tight text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  THAWBIN
+                </span>
+                <span className="text-[9px] -mt-1 font-bold tracking-widest text-[#B89558] uppercase">
+                  Islamic Lifestyle
+                </span>
+              </div>
             </Link>
-            <p className="text-sm leading-relaxed mb-5" style={{ color: '#A08070' }}>
-              Premium furniture and adjustable desks, thoughtfully crafted to bring comfort, style, and productivity to your workspace in Bangladesh.
+
+            <p className="text-xs md:text-sm leading-relaxed mb-5" style={{ color: '#D5C4B4' }}>
+              থওবিন (Thawbin) — প্রিমিয়াম পাঞ্জাবি, অ্যালকোহলমুক্ত আতর, আরামদায়ক জায়নামাজ, তসবিহ ও পবিত্র কুরআনের বিশ্বস্ত ইসলামিক অনলাইন শপ।
             </p>
-            {/* Social icons */}
-            <div className="flex gap-3">
+
+            {/* Social Links */}
+            <div className="flex gap-2.5">
               {[
-                { Icon: Facebook, href: '#', bg: '#3b5998' },
-                { Icon: Instagram, href: '#', bg: '#e1306c' },
-                { Icon: Youtube, href: '#', bg: '#ff0000' },
-              ].map(({ Icon, href, bg }, i) => (
-                <a key={i} href={href}
-                  className="w-9 h-9 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                  style={{ background: bg }}>
-                  <Icon className="w-4 h-4 text-white" />
+                { Icon: Facebook, href: '#', label: 'Facebook' },
+                { Icon: Instagram, href: '#', label: 'Instagram' },
+                { Icon: Youtube, href: '#', label: 'Youtube' },
+              ].map(({ Icon, href, label }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  aria-label={label}
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                  style={{ background: '#3A251E', border: '1px solid rgba(184,149,88,0.3)', color: '#B89558' }}
+                >
+                  <Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Col 2 — Important Links */}
+          {/* Col 2: Islamic Product Categories */}
           <div>
-            <h4 className="text-xs font-black uppercase tracking-widest mb-5"
-              style={{ color: '#C49A6C', letterSpacing: '0.1em' }}>
-              Important Links
+            <h4
+              className="text-xs font-black uppercase tracking-widest mb-4 flex items-center gap-1.5"
+              style={{ color: '#B89558' }}
+            >
+              <Sparkles size={13} />
+              <span>ইসলামিক ক্যাটাগরি</span>
             </h4>
-            <ul className="space-y-2.5">
-              {footerLinks.important.map(link => (
-                <li key={link.href}>
-                  <Link href={link.href}
-                    className="text-sm transition-colors hover:text-white"
-                    style={{ color: '#C5B0A0' }}>
-                    {link.label}
+            <ul className="space-y-2 text-xs md:text-sm">
+              {ISLAMIC_CATEGORIES.slice(0, 6).map((cat) => (
+                <li key={cat.slug}>
+                  <Link
+                    href={`/category/${cat.slug}`}
+                    className="hover:text-white transition-colors"
+                    style={{ color: '#C5B0A0' }}
+                  >
+                    {cat.nameBn}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/categories" className="text-[#B89558] font-bold hover:underline">
+                  সকল ক্যাটাগরি দেখুন →
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Col 3 — Contact */}
+          {/* Col 3: Customer Service & Policies */}
           <div>
-            <h4 className="text-xs font-black uppercase tracking-widest mb-5"
-              style={{ color: '#C49A6C', letterSpacing: '0.1em' }}>
-              Contact Us
+            <h4
+              className="text-xs font-black uppercase tracking-widest mb-4"
+              style={{ color: '#B89558' }}
+            >
+              কাস্টমার সার্ভিস ও পলিসি
             </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
-                <a href="mailto:info@thawbin.com" className="text-sm hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
-                  info@thawbin.com
+            <ul className="space-y-2.5 text-xs md:text-sm">
+              <li>
+                <Link href="/orders" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  অর্ডার ট্র্যাকিং
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  আমাদের সম্পর্কে
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  রিটার্ন ও রিফান্ড পলিসি
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  গোপনীয়তা নীতি (Privacy Policy)
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  শর্তাবলী ও নিয়ম (Terms & Conditions)
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  যোগাযোগ ও সহায়তা
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Contact & Payment Info */}
+          <div>
+            <h4
+              className="text-xs font-black uppercase tracking-widest mb-4"
+              style={{ color: '#B89558' }}
+            >
+              যোগাযোগ
+            </h4>
+            <ul className="space-y-3 text-xs md:text-sm mb-6">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
+                <span style={{ color: '#C5B0A0' }}>ঢাকা, বাংলাদেশ</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
+                <a href="tel:+8801700000000" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  +880 1700-000000
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
-                <a href="tel:+8801234567890" className="text-sm hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
-                  +880 1234-567890
+              <li className="flex items-start gap-2.5">
+                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
+                <a href="mailto:support@thawbin.com" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  support@thawbin.com
                 </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#C49A6C' }} />
-                <span className="text-sm" style={{ color: '#C5B0A0' }}>
-                  Dhaka, Bangladesh
-                </span>
               </li>
             </ul>
 
-            {/* Payment badges */}
-            <div className="mt-6">
-              <p className="text-xs mb-2" style={{ color: '#6B5040' }}>Accepted Payments</p>
-              <div className="flex flex-wrap gap-2">
-                {['💳 Visa', '💳 Mastercard', '💰 bKash', '💰 Nagad'].map((p, i) => (
-                  <span key={i} className="px-2.5 py-1 rounded text-xs font-medium"
-                    style={{ background: '#3D2820', color: '#C5B0A0', border: '1px solid #5D3D2E' }}>
+            {/* Payment methods */}
+            <div>
+              <p className="text-[11px] mb-2 font-semibold" style={{ color: '#8A7060' }}>
+                পেমেন্ট মেথড
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-[11px]">
+                {['ক্যাশ অন ডেলিভারি', 'bKash', 'Nagad', 'Cards'].map((p, i) => (
+                  <span
+                    key={i}
+                    className="px-2.5 py-1 rounded-lg font-medium"
+                    style={{ background: '#3A251E', color: '#E7D7C4', border: '1px solid rgba(184,149,88,0.2)' }}
+                  >
                     {p}
                   </span>
                 ))}
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Copyright row */}
-      <div style={{ borderTop: '1px solid #3D2820' }}>
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="text-xs" style={{ color: '#6B5040' }}>
-            © {new Date().getFullYear()} Thawbin. All rights reserved.
+      {/* ── Copyright Bottom Strip ─────────────────────────────────── */}
+      <div style={{ borderTop: '1px solid #3A251E', background: '#221512' }}>
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs" style={{ color: '#8A7060' }}>
+          <p>
+            © {new Date().getFullYear()} Thawbin (থওবিন). সর্বস্বত্ব সংরক্ষিত।
           </p>
-          <p className="text-xs" style={{ color: '#6B5040' }}>
-            Designed with care for Bangladesh 🇧🇩
+          <p className="text-[11px]">
+            বাংলাদেশী বিশ্বস্ত ইসলামিক লাইফস্টাইল ব্র্যান্ড 🇧🇩
           </p>
         </div>
       </div>

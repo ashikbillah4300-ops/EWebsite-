@@ -5,9 +5,8 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useAuth } from '../context/AuthContext';
-import { Package, ChevronRight, Clock, CheckCircle, XCircle, Truck, Loader2, Menu, X } from 'lucide-react';
+import { Package, Clock, CheckCircle, XCircle, Truck, Loader2, ArrowLeft, ShoppingBag } from 'lucide-react';
 
 export default function OrdersPage() {
   const { user, loading: authLoading, logout } = useAuth();
@@ -15,254 +14,146 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [fetchingOrders, setFetchingOrders] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/login');
-    } else if (user) {
-      setLoading(false);
-      fetchOrders();
-    }
-  }, [user, authLoading, router]);
+    fetchOrders();
+    setLoading(false);
+  }, []);
 
   const fetchOrders = async () => {
     setFetchingOrders(true);
     try {
       const res = await fetch('/api/orders');
       const data = await res.json();
-      
-      if (res.ok) {
-        setOrders(data.orders || []);
-      } else {
-        console.error('Failed to fetch orders:', data.error);
+      if (data.orders) {
+        setOrders(data.orders);
       }
     } catch (error) {
-      console.error('Error fetching orders:', error);
+      console.error('Failed to fetch orders:', error);
     } finally {
       setFetchingOrders(false);
     }
   };
 
-  const handleLogout = async () => {
-    await logout();
-    window.location.href = '/';
-  };
-
-  const getStatusIcon = (status) => {
+  const getStatusBadge = (status) => {
     switch (status) {
       case 'delivered':
-        return <CheckCircle className="w-4 h-4" />;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E8F5EE] text-[#32805A]">ডেলিভার্ড</span>;
       case 'shipped':
-        return <Truck className="w-4 h-4" />;
-      case 'processing':
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700">ডেলিভারিতে আছে</span>;
       case 'confirmed':
-        return <Clock className="w-4 h-4" />;
+      case 'processing':
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700">নিশ্চিত হয়েছে</span>;
       case 'cancelled':
-      case 'returned':
-        return <XCircle className="w-4 h-4" />;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-600">বাতিল</span>;
       default:
-        return <Package className="w-4 h-4" />;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-700">অপেক্ষমাণ</span>;
     }
   };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'delivered':
-        return 'bg-green-100 text-green-700';
-      case 'shipped':
-        return 'bg-blue-100 text-blue-700';
-      case 'processing':
-      case 'confirmed':
-        return 'bg-yellow-100 text-yellow-700';
-      case 'cancelled':
-      case 'returned':
-        return 'bg-red-100 text-red-700';
-      default:
-        return 'bg-gray-100 text-gray-700';
-    }
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
-
-  if (authLoading || loading) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF6F0' }}>
+        <Loader2 className="w-8 h-8 animate-spin text-[#B89558]" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-[#083b66] to-[#062d4d] text-white py-6 sm:py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">My Orders</h1>
-          <p className="text-blue-200 text-sm sm:text-base">Track and manage your orders</p>
-        </div>
-      </div>
+    <div className="min-h-screen py-8 md:py-12" style={{ background: '#FAF6F0', color: '#2A211D' }}>
+      <div className="max-w-5xl mx-auto px-4">
 
-      <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8">
-        <div className="flex items-center gap-2 mb-4 sm:mb-6 text-xs sm:text-sm">
-          <Link href="/" className="text-[#083b66] hover:underline">Home</Link>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-700">My Orders</span>
+        {/* ── Header ─────────────────────────────────────────────────── */}
+        <div className="flex items-center gap-2 text-xs text-[#80736B] mb-6">
+          <Link href="/" className="hover:text-[#2B1B16]">হোম</Link>
+          <span>/</span>
+          <span className="text-[#2B1B16] font-semibold">আমার অর্ডার সমূহ</span>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden mb-4">
-          <button 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm text-gray-700 w-full justify-between"
-          >
-            <span className="font-medium">Menu</span>
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-
-        <div className="grid md:grid-cols-4 gap-4 sm:gap-6">
-          {/* Desktop Sidebar */}
-          <div className="hidden md:block md:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#083b66] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Package className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-900">{user?.name || 'User'}</h3>
-                <p className="text-sm text-gray-500">{user?.email}</p>
-              </div>
-              <nav className="space-y-2">
-                <Link href="/profile" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                  <span className="font-medium text-sm">Profile</span>
-                </Link>
-                <Link href="/orders" className="flex items-center gap-3 px-4 py-3 bg-[#083b66] text-white rounded-lg">
-                  <span className="font-medium text-sm">My Orders</span>
-                </Link>
-                <Link href="/wishlist" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                  <span className="font-medium text-sm">Wishlist</span>
-                </Link>
-                <Link href="/settings" className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                  <span className="font-medium text-sm">Settings</span>
-                </Link>
-                <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg w-full">
-                  <span className="font-medium text-sm">Logout</span>
-                </button>
-              </nav>
-            </div>
+        <div className="rounded-3xl p-6 md:p-8 mb-8 text-white shadow-sm flex items-center justify-between"
+          style={{ background: '#2B1B16', border: '1px solid rgba(184,149,88,0.25)' }}>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-black text-[#F7F1E8]" style={{ fontFamily: "'Playfair Display', serif" }}>
+              আমার অর্ডার তালিকা
+            </h1>
+            <p className="text-xs text-[#E7D7C4] mt-1">
+              আপনার সমস্ত অর্ডারের স্ট্যাটাস ও ডেলিভারি তথ্য ট্র্যাক করুন
+            </p>
           </div>
+          <div className="w-12 h-12 rounded-2xl bg-[#3A251E] border border-[#B89558]/30 flex items-center justify-center">
+            <Package className="w-6 h-6 text-[#B89558]" />
+          </div>
+        </div>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden col-span-4">
-              <div className="bg-white rounded-xl shadow-sm p-4">
-                <nav className="space-y-2">
-                  <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                    <span className="font-medium">Profile</span>
-                  </Link>
-                  <Link href="/orders" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 bg-[#083b66] text-white rounded-lg">
-                    <span className="font-medium">My Orders</span>
-                  </Link>
-                  <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                    <span className="font-medium">Wishlist</span>
-                  </Link>
-                  <Link href="/settings" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                    <span className="font-medium">Settings</span>
-                  </Link>
-                </nav>
-              </div>
+        {/* ── Orders Content ─────────────────────────────────────────── */}
+        {orders.length === 0 ? (
+          <div className="bg-white rounded-3xl p-10 md:p-14 text-center border border-[#E7DED5] shadow-sm">
+            <div className="w-16 h-16 rounded-full bg-[#FAF6F0] flex items-center justify-center mx-auto mb-4 border border-[#E7DED5]">
+              <ShoppingBag className="w-8 h-8 text-[#80736B]" />
             </div>
-          )}
-
-          {/* Orders Content */}
-          <div className="md:col-span-3">
-            {fetchingOrders ? (
-              <div className="flex items-center justify-center py-8 sm:py-12">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-              </div>
-            ) : orders.length === 0 ? (
-              <div className="bg-white rounded-xl shadow-sm p-6 sm:p-12 text-center">
-                <div className="w-16 h-16 sm:w-24 sm:h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Package className="w-8 h-8 sm:w-12 sm:h-12 text-[#083b66]" />
-                </div>
-                <h2 className="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">No Orders Yet</h2>
-                <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
-                  You haven't placed any orders yet.
-                </p>
-                <Link href="/shop" className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-[#083b66] text-white rounded-xl hover:bg-[#062d4d] font-semibold transition-all text-sm sm:text-base">
-                  Start Shopping
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-3 sm:space-y-4">
-                {orders.map((order) => (
-                  <div key={order._id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto">
-                          <div className="whitespace-nowrap">
-                            <p className="text-xs sm:text-sm text-gray-500">Order</p>
-                            <p className="font-semibold text-gray-900 text-sm sm:text-base">{order.orderNumber}</p>
-                          </div>
-                          <div className="hidden sm:block h-8 w-px bg-gray-300"></div>
-                          <div className="whitespace-nowrap">
-                            <p className="text-xs sm:text-sm text-gray-500">Date</p>
-                            <p className="font-medium text-gray-900 text-sm sm:text-base">{formatDate(order.createdAt)}</p>
-                          </div>
-                          <div className="hidden sm:block h-8 w-px bg-gray-300"></div>
-                          <div className="whitespace-nowrap">
-                            <p className="text-xs sm:text-sm text-gray-500">Total</p>
-                            <p className="font-semibold text-gray-900 text-sm sm:text-base">৳{order.total.toLocaleString()}</p>
-                          </div>
-                        </div>
-                        <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1 ${getStatusColor(order.status)}`}>
-                          {getStatusIcon(order.status)}
-                          <span className="hidden sm:inline">{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="px-4 sm:px-6 py-3 sm:py-4">
-                      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-3">Items:</p>
-                      <div className="space-y-2">
-                        {order.items.map((item, index) => (
-                          <div key={index} className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 sm:gap-3">
-                              {item.image ? (
-                                <Image 
-                                  src={item.image} 
-                                  alt={item.name} 
-                                  width={40} 
-                                  height={40} 
-                                  className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg"
-                                />
-                              ) : (
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                                  <Package className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
-                                </div>
-                              )}
-                              <div>
-                                <p className="font-medium text-gray-900 text-sm sm:text-base line-clamp-1">{item.name}</p>
-                                <p className="text-xs sm:text-sm text-gray-500">Qty: {item.quantity} × ৳{item.price.toLocaleString()}</p>
-                              </div>
-                            </div>
-                            <p className="font-semibold text-gray-900 text-sm sm:text-base whitespace-nowrap">৳{(item.price * item.quantity).toLocaleString()}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+            <h2 className="text-lg font-bold text-[#2B1B16] mb-2">আপনার কোনো সক্রিয় অর্ডার নেই</h2>
+            <p className="text-xs text-[#80736B] mb-6">
+              Thawbin-এর চমৎকার পাঞ্জাবি, আতর বা জায়নামাজ কালেকশন থেকে আপনার পছন্দের পণ্য অর্ডার করুন।
+            </p>
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white text-xs md:text-sm font-bold rounded-xl shadow-md transition-all hover:opacity-90"
+              style={{ background: '#2B1B16' }}
+            >
+              <span>পণ্য কেনাকাটা করুন</span>
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {orders.map((order) => (
+              <div
+                key={order._id || order.orderNumber}
+                className="bg-white rounded-3xl p-5 md:p-6 border border-[#E7DED5] shadow-sm space-y-4"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E7DED5]">
+                  <div>
+                    <span className="text-[11px] text-[#80736B]">অর্ডার আইডি:</span>
+                    <p className="font-mono font-bold text-xs md:text-sm text-[#2B1B16]">{order.orderNumber}</p>
                   </div>
-                ))}
+                  <div>
+                    <span className="text-[11px] text-[#80736B]">তারিখ:</span>
+                    <p className="text-xs text-[#2B1B16]">
+                      {order.createdAt ? new Date(order.createdAt).toLocaleDateString('bn-BD') : 'আজ'}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-[#80736B]">মোট প্রদেয়:</span>
+                    <p className="font-bold text-sm text-[#2B1B16]">৳{order.total?.toLocaleString() || 0}</p>
+                  </div>
+                  <div>
+                    {getStatusBadge(order.status)}
+                  </div>
+                </div>
+
+                {/* Items in this order */}
+                <div className="space-y-2">
+                  {(order.items || []).map((it, idx) => (
+                    <div key={idx} className="flex items-center justify-between text-xs py-1">
+                      <span className="font-semibold text-[#2B1B16] truncate max-w-xs">{it.name}</span>
+                      <span className="text-[#80736B]">{it.quantity} × ৳{it.price?.toLocaleString() || 0}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Shipping summary */}
+                {order.shippingAddress && (
+                  <div className="pt-2 border-t border-[#E7DED5]/60 text-[11px] text-[#80736B]">
+                    <span>ডেলিভারি ঠিকানা: </span>
+                    <span className="text-[#2B1B16]">
+                      {order.shippingAddress.name}, {order.shippingAddress.address}, {order.shippingAddress.city} ({order.shippingAddress.phone})
+                    </span>
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
-        </div>
+        )}
+
       </div>
     </div>
   );

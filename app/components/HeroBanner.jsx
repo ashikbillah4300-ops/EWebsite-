@@ -2,131 +2,152 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 
-const defaultBanners = [
+const islamicHeroBanners = [
   {
     id: 1,
-    title: 'Build Your Workspace.\nYour Way.',
-    description: 'Discover thoughtfully designed desks that bring comfort, style, and productivity to your workspace.',
-    image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=1200&h=600&fit=crop',
+    tag: 'Thawbin Signature',
+    title: 'আপনার জীবনে ইসলামিক\nসৌন্দর্যের ছোঁয়া',
+    description: 'পাঞ্জাবি থেকে আতর, জায়নামাজ থেকে ইসলামিক উপহার—আপনার পছন্দের সবকিছু এক ঠিকানায়।',
+    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1200&h=650&fit=crop&q=85',
     link: '/shop',
-    cta: 'Shop Desks',
+    ctaPrimary: 'এখনই শপিং করুন',
+    ctaSecondary: 'সকল ক্যাটাগরি দেখুন',
+    secondaryLink: '/categories'
   },
   {
     id: 2,
-    title: 'Adjustable Desks\nfor Every Body.',
-    description: 'Sit. Stand. Thrive. Our ergonomic desks adapt to your comfort throughout the day.',
-    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&h=600&fit=crop',
-    link: '/shop',
-    cta: 'Explore Collection',
+    tag: 'Attar & Fragrance',
+    title: '১০০% অ্যালকোহলমুক্ত\nখাঁটি দেহন আল উদ ও আতর',
+    description: 'ঐতিহ্যবাহী কস্তুরী ও বিলাসবহুল এরাবিয়ান সুবাস যা ইবাদত ও নামাজে আনে পরম প্রশান্তি।',
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&h=650&fit=crop&q=85',
+    link: '/category/attar',
+    ctaPrimary: 'আতর সংগ্রহ দেখুন',
+    ctaSecondary: 'সকল পণ্য',
+    secondaryLink: '/shop'
   },
   {
     id: 3,
-    title: 'Premium Materials.\nTimeless Design.',
-    description: 'Crafted from sustainably sourced wood and high-grade steel for furniture that lasts a lifetime.',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=600&fit=crop',
-    link: '/categories',
-    cta: 'View Catalogue',
+    tag: 'Prayer Essentials',
+    title: 'তুর্কি ভেলভেট জায়নামাজ\nও জলপাই কাঠের তসবিহ',
+    description: 'নরম কুশনযুক্ত আরামদায়ক জায়নামাজ এবং হস্তনির্মিত প্রাকৃতিক কাঠের তসবিহ সম্ভার।',
+    image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=1200&h=650&fit=crop&q=85',
+    link: '/category/prayer-mats',
+    ctaPrimary: 'জায়নামাজ কালেকশন',
+    ctaSecondary: 'তসবিহ সংগ্রহ',
+    secondaryLink: '/category/tasbih'
   },
 ];
 
 const sideBanners = [
   {
-    id: 4,
-    title: 'Customize\nYour Desk',
-    description: 'Choose size, height & finish',
-    image: 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=600&h=300&fit=crop',
-    link: '/shop',
+    id: 'side-1',
+    badge: 'উপহার কালেকশন',
+    title: 'ইসলামিক গিফট বক্স',
+    desc: 'নিকাহ, ঈদ ও প্রিয়জনের জন্য সুসজ্জিত উপহার সেট',
+    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&h=300&fit=crop&q=80',
+    link: '/category/islamic-gifts',
   },
   {
-    id: 5,
-    title: 'Corporate\nOrders',
-    description: 'Bulk pricing available',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop',
-    link: '/contact',
+    id: 'side-2',
+    badge: 'পবিত্র কুরআন ও হাদিস',
+    title: 'কুরআন ও ইসলামিক বই',
+    desc: 'তাজবীদ ও বাংলা অনুবাদসহ প্রামাণ্য ইসলামিক গ্রন্থাবলী',
+    image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=600&h=300&fit=crop&q=80',
+    link: '/category/quran-and-books',
   },
 ];
 
-export default function HeroBanner({ autoPlayInterval = 4000 }) {
-  const [banners, setBanners] = useState(defaultBanners);
-  const [loading, setLoading] = useState(true);
+export default function HeroBanner({ autoPlayInterval = 5000 }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const res = await fetch('/api/banners?position=hero');
-        const data = await res.json();
-        if (data.banners?.length > 0) {
-          setBanners(data.banners.map(b => ({
-            id: b._id, title: b.title, description: b.description,
-            image: b.image, link: b.link || '/shop', cta: 'Shop Now',
-          })));
-        }
-      } catch {
-        // use defaults
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBanners();
-  }, []);
-
-  useEffect(() => {
-    if (banners.length <= 1) return;
-    const t = setInterval(() => setCurrentSlide(p => (p + 1) % banners.length), autoPlayInterval);
+    const t = setInterval(() => {
+      setCurrentSlide(p => (p + 1) % islamicHeroBanners.length);
+    }, autoPlayInterval);
     return () => clearInterval(t);
-  }, [banners.length, autoPlayInterval]);
-
-  if (loading) {
-    return (
-      <section className="py-4 md:py-6" style={{ background: '#FAF6F0' }}>
-        <div className="max-w-7xl mx-auto px-2 md:px-4">
-          <div className="h-[280px] md:h-[420px] rounded-2xl animate-pulse" style={{ background: '#EFE2D4' }} />
-        </div>
-      </section>
-    );
-  }
+  }, [autoPlayInterval]);
 
   return (
     <section className="py-4 md:py-6" style={{ background: '#FAF6F0' }}>
-      <div className="max-w-7xl mx-auto px-2 md:px-4">
+      <div className="max-w-7xl mx-auto px-3 md:px-4">
         <div className="md:grid md:grid-cols-3 md:gap-4">
 
-          {/* Main Carousel */}
-          <div className="md:col-span-2 relative h-[250px] md:h-[420px] rounded-2xl overflow-hidden group">
-            {banners.map((banner, i) => (
-              <div key={banner.id}
-                className={`absolute inset-0 transition-opacity duration-700 ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
-                <img src={banner.image} alt={banner.title}
-                  className="w-full h-full object-cover" />
-                {/* Dark overlay — left half */}
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(43,27,24,0.80) 0%, rgba(43,27,24,0.20) 60%, transparent 100%)' }} />
-                {/* Content */}
+          {/* ── Main Hero Carousel ─────────────────────────────────── */}
+          <div className="md:col-span-2 relative h-[320px] sm:h-[380px] md:h-[440px] rounded-3xl overflow-hidden group shadow-lg"
+            style={{ border: '1px solid #E7DED5' }}>
+            {islamicHeroBanners.map((banner, i) => (
+              <div
+                key={banner.id}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  i === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              >
+                <img
+                  src={banner.image}
+                  alt={banner.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Dark Chocolate Gradient Overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(43,27,22,0.92) 0%, rgba(43,27,22,0.70) 50%, rgba(43,27,22,0.30) 100%)',
+                  }}
+                />
+
+                {/* Text Content */}
                 <div className="absolute inset-0 flex items-center">
-                  <div className="p-6 md:p-10 max-w-md">
-                    <div className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-widest"
-                      style={{ background: '#C49A6C', color: '#FFF' }}>
-                      Thawbin Collection
+                  <div className="p-6 md:p-12 max-w-lg">
+                    <div
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-3 tracking-wider uppercase shadow-sm"
+                      style={{ background: '#B89558', color: '#FFFFFF' }}
+                    >
+                      <Sparkles size={12} />
+                      <span>{banner.tag}</span>
                     </div>
-                    <h2 className="text-xl md:text-4xl font-black text-white mb-3 leading-tight whitespace-pre-line"
-                      style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 2px 12px rgba(0,0,0,0.3)' }}>
+
+                    <h1
+                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[#F7F1E8] mb-3 leading-[1.2] whitespace-pre-line"
+                      style={{
+                        fontFamily: "'Playfair Display', Georgia, serif",
+                        textShadow: '0 2px 14px rgba(0,0,0,0.35)',
+                      }}
+                    >
                       {banner.title}
-                    </h2>
-                    <p className="text-sm md:text-base mb-5 leading-relaxed" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    </h1>
+
+                    <p
+                      className="text-xs sm:text-sm md:text-base mb-6 leading-relaxed line-clamp-2 md:line-clamp-none"
+                      style={{ color: '#E7D7C4' }}
+                    >
                       {banner.description}
                     </p>
+
                     <div className="flex flex-wrap gap-3">
-                      <Link href={banner.link}
-                        className="inline-block px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90"
-                        style={{ background: '#C49A6C' }}>
-                        {banner.cta}
+                      <Link
+                        href={banner.link}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs md:text-sm font-bold text-white transition-all shadow-md hover:scale-105 active:scale-95"
+                        style={{ background: '#B89558' }}
+                      >
+                        <span>{banner.ctaPrimary}</span>
+                        <ArrowRight size={14} />
                       </Link>
-                      <Link href="/shop"
-                        className="inline-block px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
-                        style={{ background: 'rgba(255,255,255,0.15)', color: '#FFF', border: '1.5px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(4px)' }}>
-                        Customize Your Desk
+
+                      <Link
+                        href={banner.secondaryLink}
+                        className="inline-flex items-center px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition-all hover:bg-white/20"
+                        style={{
+                          background: 'rgba(255,255,255,0.12)',
+                          color: '#FFFFFF',
+                          border: '1.5px solid rgba(231,215,196,0.4)',
+                          backdropFilter: 'blur(4px)',
+                        }}
+                      >
+                        {banner.ctaSecondary}
                       </Link>
                     </div>
                   </div>
@@ -134,52 +155,88 @@ export default function HeroBanner({ autoPlayInterval = 4000 }) {
               </div>
             ))}
 
-            {/* Arrows */}
-            {banners.length > 1 && (
-              <>
-                <button onClick={() => setCurrentSlide(p => (p - 1 + banners.length) % banners.length)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ background: 'rgba(255,255,255,0.92)' }}>
-                  <ChevronLeft className="w-5 h-5" style={{ color: '#3E2723' }} />
-                </button>
-                <button onClick={() => setCurrentSlide(p => (p + 1) % banners.length)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ background: 'rgba(255,255,255,0.92)' }}>
-                  <ChevronRight className="w-5 h-5" style={{ color: '#3E2723' }} />
-                </button>
-                {/* Dots */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                  {banners.map((_, i) => (
-                    <button key={i} onClick={() => setCurrentSlide(i)}
-                      className="h-2 rounded-full transition-all"
-                      style={{
-                        width: i === currentSlide ? 24 : 8,
-                        background: i === currentSlide ? '#C49A6C' : 'rgba(255,255,255,0.5)',
-                      }} />
-                  ))}
-                </div>
-              </>
-            )}
+            {/* Carousel Navigation Arrows */}
+            <button
+              onClick={() =>
+                setCurrentSlide(
+                  p => (p - 1 + islamicHeroBanners.length) % islamicHeroBanners.length
+                )
+              }
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
+              style={{ background: 'rgba(255,255,255,0.92)' }}
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="w-5 h-5 text-[#2B1B16]" />
+            </button>
+            <button
+              onClick={() =>
+                setCurrentSlide(p => (p + 1) % islamicHeroBanners.length)
+              }
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
+              style={{ background: 'rgba(255,255,255,0.92)' }}
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="w-5 h-5 text-[#2B1B16]" />
+            </button>
+
+            {/* Dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {islamicHeroBanners.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className="h-2 rounded-full transition-all"
+                  style={{
+                    width: i === currentSlide ? 28 : 8,
+                    background:
+                      i === currentSlide ? '#B89558' : 'rgba(255,255,255,0.5)',
+                  }}
+                  aria-label={`Slide ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Side Banners */}
+          {/* ── Side Islamic Feature Banners ────────────────────────── */}
           <div className="hidden md:flex flex-col gap-4">
-            {sideBanners.map(banner => (
-              <Link key={banner.id} href={banner.link}
-                className="relative flex-1 rounded-2xl overflow-hidden group">
-                <img src={banner.image} alt={banner.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(43,27,24,0.75), rgba(43,27,24,0.30))' }} />
-                <div className="absolute inset-0 flex items-center p-5">
+            {sideBanners.map(side => (
+              <Link
+                key={side.id}
+                href={side.link}
+                className="relative flex-1 rounded-3xl overflow-hidden group shadow-md"
+                style={{ border: '1px solid #E7DED5' }}
+              >
+                <img
+                  src={side.image}
+                  alt={side.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(43,27,22,0.88) 0%, rgba(43,27,22,0.40) 100%)',
+                  }}
+                />
+                <div className="absolute inset-0 flex items-center p-6">
                   <div>
-                    <h3 className="text-xl font-black text-white leading-tight whitespace-pre-line"
-                      style={{ fontFamily: "'Playfair Display', serif" }}>
-                      {banner.title}
+                    <span
+                      className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white mb-2"
+                      style={{ background: '#B89558' }}
+                    >
+                      {side.badge}
+                    </span>
+                    <h3
+                      className="text-xl font-bold text-[#F7F1E8] leading-tight mb-1"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      {side.title}
                     </h3>
-                    <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.80)' }}>{banner.description}</p>
-                    <span className="inline-block mt-3 px-3 py-1 rounded-full text-xs font-bold"
-                      style={{ background: '#C49A6C', color: '#FFF' }}>
-                      Learn More →
+                    <p className="text-xs text-[#E7D7C4] leading-relaxed line-clamp-2">
+                      {side.desc}
+                    </p>
+                    <span className="inline-flex items-center gap-1 mt-3 text-xs font-bold text-[#B89558] group-hover:translate-x-1 transition-transform">
+                      সংগ্রহ দেখুন →
                     </span>
                   </div>
                 </div>

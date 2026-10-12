@@ -6,7 +6,7 @@
 ```
 1. npm run dev (running)
 2. Admin login: localhost:3000/admin-login 
-   email: admin@stellarmartbd.com / pass: turjo0424  
+   username: yeasin / pass: yeasin@2008  
 3. Admin → Products → Add test products
 4. /shop → Add to cart → CartDrawer ✓ shows
 ```

@@ -9,19 +9,24 @@ export async function GET() {
     
     // Check if admin already exists
     const existingAdmin = await User.findOne({ email: 'admin@stellarmartbd.com' });
+    const hashedPassword = await bcrypt.hash('yeasin@2008', 10);
     
     if (existingAdmin) {
+      existingAdmin.password = hashedPassword;
+      existingAdmin.name = 'yeasin';
+      await existingAdmin.save();
       return NextResponse.json(
-        { message: '✅ Admin already exists', email: existingAdmin.email },
+        { 
+          message: '✅ Admin credentials updated! Login: yeasin or admin@stellarmartbd.com / pass: yeasin@2008', 
+          email: existingAdmin.email 
+        },
         { status: 200 }
       );
     }
     
     // Create admin user
-    const hashedPassword = await bcrypt.hash('turjo0424', 10);
-    
     const adminUser = await User.create({
-      name: 'Super Admin',
+      name: 'yeasin',
       email: 'admin@stellarmartbd.com',
       password: hashedPassword,
       phone: '+8801234567890',
@@ -32,7 +37,7 @@ export async function GET() {
     
     return NextResponse.json(
       { 
-        message: '✅ Admin created! Login: admin@stellarmartbd.com / turjo0424',
+        message: '✅ Admin created! Login: yeasin or admin@stellarmartbd.com / pass: yeasin@2008',
         email: adminUser.email
       },
       { status: 201 }

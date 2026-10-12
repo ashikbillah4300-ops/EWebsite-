@@ -3,19 +3,28 @@ import jwt from 'jsonwebtoken';
 
 // Hardcoded admin credentials
 const ADMIN_CREDENTIALS = {
-  username: 'turjo',
-  password: 'turjo0424'
+  username: 'yeasin',
+  password: 'yeasin@2008'
 };
 
 export async function POST(request) {
   try {
     const { username, password } = await request.json();
     
-    // Check credentials
-    if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+    const cleanUsername = (username || '').trim();
+    const cleanPassword = (password || '').trim();
+    
+    // Check credentials (accepts 'yeasin', 'admin@stellarmartbd.com')
+    const isUsernameMatch = 
+      cleanUsername.toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() ||
+      cleanUsername.toLowerCase() === 'admin@stellarmartbd.com';
+      
+    const isPasswordMatch = cleanPassword === ADMIN_CREDENTIALS.password;
+    
+    if (isUsernameMatch && isPasswordMatch) {
       // Generate JWT token
       const token = jwt.sign(
-        { id: 'admin', username: username, role: 'admin' },
+        { id: 'admin', username: cleanUsername, role: 'admin' },
         process.env.JWT_SECRET || 'stellarmartbd_secret_key_2024',
         { expiresIn: process.env.JWT_EXPIRE || '7d' }
       );

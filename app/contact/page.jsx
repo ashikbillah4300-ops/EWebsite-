@@ -55,7 +55,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs md:text-sm text-[#2B1B16]">ইমেইল সাপোর্ট</h3>
-                  <p className="text-xs text-[#80736B] mt-0.5">support@thawbin.com</p>
+                  <p className="text-xs text-[#80736B] mt-0.5">support@awbin.com</p>
                   <p className="text-[11px] text-[#80736B] mt-0.5">২৪ ঘণ্টার মধ্যে উত্তর প্রদান করা হয়</p>
                 </div>
               </div>

@@ -144,8 +144,8 @@ const curatedCollections = [
 // ─── Section 11: Genuine Trust & FAQ ───────────────────────
 const faqs = [
   {
-    q: 'Thawbin-এর আতর কি সম্পূর্ণ অ্যালকোহলমুক্ত?',
-    a: 'হ্যাঁ, Thawbin-এর প্রতিটি আতর শতভাগ অ্যালকোহলমুক্ত খাঁটি কনসেনট্রেটেড পারফিউম অয়েল (Concentrated Perfume Oil), যা নামাজ ও ইবাদতের জন্য সম্পূর্ণরূপে হালাল ও পবিত্র।'
+    q: 'AWBIN-এর আতর কি সম্পূর্ণ অ্যালকোহলমুক্ত?',
+    a: 'হ্যাঁ, AWBIN-এর প্রতিটি আতর শতভাগ অ্যালকোহলমুক্ত খাঁটি কনসেনট্রেটেড পারফিউম অয়েল (Concentrated Perfume Oil), যা নামাজ ও ইবাদতের জন্য সম্পূর্ণরূপে হালাল ও পবিত্র।'
   },
   {
     q: 'ডেলিভারি কত দিনের মধ্যে পাওয়া যায়?',
@@ -197,7 +197,7 @@ export default function HomePage() {
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     if (!newsletterEmail) return;
-    setNewsletterStatus('Thawbin নিউজলেটারে সফলভাবে সাবস্ক্রাইব করার জন্য ধন্যবাদ!');
+    setNewsletterStatus('AWBIN নিউজলেটারে সফলভাবে সাবস্ক্রাইব করার জন্য ধন্যবাদ!');
     setNewsletterEmail('');
   };
 
@@ -373,7 +373,7 @@ export default function HomePage() {
               Shop by Collection
             </h2>
             <p className="text-sm" style={{ color: THEME.mutedText }}>
-              আপনার প্রয়োজনীয়তা অনুযায়ী সাজানো Thawbin-এর চমৎকার ইসলামিক সংগ্রহশালা
+              আপনার প্রয়োজনীয়তা অনুযায়ী সাজানো AWBIN-এর চমৎকার ইসলামিক সংগ্রহশালা
             </p>
           </div>
 
@@ -501,11 +501,11 @@ export default function HomePage() {
 
           <h2 className="text-2xl md:text-4xl font-black mb-4 leading-tight"
             style={{ color: THEME.darkChocolate, fontFamily: "'Playfair Display', serif" }}>
-            Thawbin — ইসলামিক পণ্যের বিশ্বস্ত ঠিকানা
+            AWBIN — ইসলামিক পণ্যের বিশ্বস্ত ঠিকানা
           </h2>
 
           <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: THEME.text }}>
-            থওবিন (Thawbin) বাংলাদেশের মুসলিম ভাই-বোনদের জন্য তৈরি একটি নির্ভরযোগ্য ইসলামিক লাইফস্টাইল ও ফ্যাশন প্ল্যাটফর্ম।
+            আওবিন (AWBIN) বাংলাদেশের মুসলিম ভাই-বোনদের জন্য তৈরি একটি নির্ভরযোগ্য ইসলামিক লাইফস্টাইল ও ফ্যাশন প্ল্যাটফর্ম।
             আমরা নিয়ে এসেছি ১০০% কম্বড সুতির শালীন পাঞ্জাবি ও জুব্বা, সম্পূর্ণ অ্যালকোহলমুক্ত খাঁটি আতর, তুরস্কের আরামদায়ক
             ভেলভেট জায়নামাজ, হস্তনির্মিত প্রাকৃতিক কাঠের তসবিহ, প্রামাণ্য ইসলামিক গ্রন্থাবলী এবং মার্জিত ইসলামিক উপহার সামগ্রী।
           </p>
@@ -600,7 +600,7 @@ export default function HomePage() {
       <section className="py-12 md:py-16" style={{ background: THEME.darkChocolate, color: THEME.white }}>
         <div className="max-w-3xl mx-auto px-4 text-center">
           <p className="text-xs uppercase tracking-widest font-bold mb-2 text-[#B89558]">
-            যুক্ত থাকুন Thawbin পরিবারের সাথে
+            যুক্ত থাকুন AWBIN পরিবারের সাথে
           </p>
           <h2 className="text-2xl md:text-3xl font-black mb-3 text-[#F7F1E8]" style={{ fontFamily: "'Playfair Display', serif" }}>
             নতুন কালেকশন ও ঈদ অফারের আপডেট পান

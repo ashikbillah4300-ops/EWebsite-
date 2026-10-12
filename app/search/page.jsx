@@ -62,10 +62,10 @@ export default function SearchPage() {
               <AlertCircle className="w-8 h-8 text-[#B89558]" />
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-[#2B1B16] mb-3">
-              দুঃখিত, এই পণ্যটি Thawbin-এর ইসলামিক পণ্য সংগ্রহে নেই।
+              দুঃখিত, এই পণ্যটি AWBIN-এর ইসলামিক পণ্য সংগ্রহে নেই।
             </h2>
             <p className="text-xs md:text-sm text-[#80736B] leading-relaxed mb-6">
-              Thawbin একটি পূর্ণাঙ্গ ও নির্ভরযোগ্য ইসলামিক লাইফস্টাইল শপ। আমরা শুধুমাত্র পাঞ্জাবি, আতর, টুপি, জায়নামাজ, তসবিহ, কুরআন শরীফ ও ইসলামিক উপহার সামগ্রী সরবরাহ করি।
+              AWBIN একটি পূর্ণাঙ্গ ও নির্ভরযোগ্য ইসলামিক লাইফস্টাইল শপ। আমরা শুধুমাত্র পাঞ্জাবি, আতর, টুপি, জায়নামাজ, তসবিহ, কুরআন শরীফ ও ইসলামিক উপহার সামগ্রী সরবরাহ করি।
             </p>
             <div className="flex justify-center gap-3">
               <Link

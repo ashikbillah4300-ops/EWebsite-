@@ -108,9 +108,13 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen flex items-center justify-center py-12 px-4" style={{ background: "#FAF6F0" }}>
       <div className="max-w-md w-full">
         <div className="rounded-3xl shadow-xl p-8" style={{ background: "#FFFFFF", border: "1px solid #E7DED5" }}>
-          <div className="text-center mb-8">
-            <Link href="/" className="text-3xl font-black tracking-tight inline-block mb-2" style={{ color: "#3E2723", fontFamily: "'Playfair Display', serif" }}>
-              THAWBIN
+          <div className="text-center mb-8 flex flex-col items-center">
+            <Link href="/" className="inline-block mb-3">
+              <img
+                src="/logo-wordmark.png"
+                alt="AWBIN"
+                className="h-12 w-auto rounded-xl shadow-md object-contain"
+              />
             </Link>
             <h1 className="text-xl font-bold" style={{ color: "#2B211D" }}>Reset Password</h1>
             <p className="text-sm mt-1" style={{ color: "#80736B" }}>Follow steps to reset your password</p>

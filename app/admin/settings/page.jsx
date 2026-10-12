@@ -34,11 +34,11 @@ export default function SettingsPage() {
 
   const [settings, setSettings] = useState({
     // General
-    siteName: 'Thawbin',
+    siteName: 'AWBIN',
     siteDescription: 'প্রিমিয়াম ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন অনলাইন স্টোর',
-    siteUrl: 'https://thawbin.com',
-    logo: '',
-    favicon: '',
+    siteUrl: 'https://awbin.com',
+    logo: '/logo-wordmark.png',
+    favicon: '/logo.png',
     timezone: 'Asia/Dhaka',
     language: 'bn',
     
@@ -51,7 +51,7 @@ export default function SettingsPage() {
     minOrderAmount: 100,
     
     // Contact
-    contactEmail: 'support@thawbin.com',
+    contactEmail: 'support@awbin.com',
     contactPhone: '+880 1700 000000',
     contactAddress: 'ঢাকা, বাংলাদেশ',
     workingHours: '10:00 AM - 8:00 PM',
@@ -59,23 +59,23 @@ export default function SettingsPage() {
     // Email
     smtpHost: 'smtp.example.com',
     smtpPort: '587',
-    smtpUser: 'noreply@thawbin.com',
+    smtpUser: 'noreply@awbin.com',
     smtpPassword: '',
-    emailFromName: 'Thawbin',
-    emailFromEmail: 'noreply@thawbin.com',
+    emailFromName: 'AWBIN',
+    emailFromEmail: 'noreply@awbin.com',
     
     // Payment
     bkashNumber: '01700000000',
     nagadNumber: '01700000000',
     bankName: 'Islami Bank Bangladesh',
     accountNumber: '1234567890',
-    accountName: 'Thawbin Lifestyle',
+    accountName: 'AWBIN Lifestyle',
     
     // Social
-    facebookUrl: 'https://facebook.com/thawbin',
-    twitterUrl: 'https://twitter.com/thawbin',
-    instagramUrl: 'https://instagram.com/thawbin',
-    youtubeUrl: 'https://youtube.com/thawbin',
+    facebookUrl: 'https://facebook.com/awbin',
+    twitterUrl: 'https://twitter.com/awbin',
+    instagramUrl: 'https://instagram.com/awbin',
+    youtubeUrl: 'https://youtube.com/awbin',
     
     // Maintenance
     maintenanceMode: false,

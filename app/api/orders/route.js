@@ -11,7 +11,7 @@ const verifyToken = (request) => {
   try {
     return jwt.verify(
       token,
-      process.env.JWT_SECRET || 'thawbin_secret_key_2025'
+      process.env.JWT_SECRET || 'awbin_secret_key_2025'
     );
   } catch (error) {
     return null;
@@ -63,7 +63,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const data = await request.json();
-    const orderNumber = `THB-${Math.floor(100000 + Math.random() * 900000)}`;
+    const orderNumber = `AWB-${Math.floor(100000 + Math.random() * 900000)}`;
 
     let orderDoc = null;
     try {
@@ -73,11 +73,11 @@ export async function POST(request) {
 
       if (!userId) {
         // Find or create default customer for guest orders
-        let guestUser = await User.findOne({ email: 'guest@thawbin.com' });
+        let guestUser = await User.findOne({ email: 'guest@awbin.com' });
         if (!guestUser) {
           guestUser = await User.create({
             name: data.name || 'Guest Customer',
-            email: 'guest@thawbin.com',
+            email: 'guest@awbin.com',
             phone: data.phone || '01700000000',
             password: 'guest_protected_password_hash',
             role: 'user',

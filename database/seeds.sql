@@ -1,9 +1,9 @@
 -- ============================================
--- THAWBIN ISLAMIC E-COMMERCE SAMPLE DATA
+-- AWBIN ISLAMIC E-COMMERCE SAMPLE DATA
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS thawbin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE thawbin;
+CREATE DATABASE IF NOT EXISTS awbin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE awbin;
 
 -- ============================================
 -- APPROVED ISLAMIC PRODUCT CATEGORIES

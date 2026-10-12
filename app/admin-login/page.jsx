@@ -42,11 +42,13 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#FAF6F0" }}>
       <div className="rounded-3xl shadow-2xl w-full max-w-md overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E7DED5" }}>
         {/* Header */}
-        <div className="p-8 text-center text-white" style={{ background: "#2B1B18", borderBottom: "1px solid rgba(196,154,108,0.3)" }}>
-          <h1 className="text-2xl font-black tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-            THAWBIN
-          </h1>
-          <p className="text-xs uppercase tracking-widest mt-1 font-semibold" style={{ color: "#C49A6C" }}>Admin Management</p>
+        <div className="p-8 text-center text-white flex flex-col items-center justify-center" style={{ background: "#202B1A", borderBottom: "1px solid rgba(196,154,108,0.3)" }}>
+          <img
+            src="/logo-wordmark.png"
+            alt="AWBIN"
+            className="h-12 w-auto mb-2 rounded-lg object-contain"
+          />
+          <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: "#C49A6C" }}>Admin Management</p>
         </div>
 
         {/* Form */}
@@ -121,7 +123,7 @@ export default function AdminLoginPage() {
         {/* Footer */}
         <div className="px-8 py-4 text-center" style={{ background: "#FAF6F0", borderTop: "1px solid #E7DED5" }}>
           <a href="/" className="text-xs font-bold hover:underline" style={{ color: "#C49A6C" }}>
-            ← Back to THAWBIN Store
+            ← Back to AWBIN Store
           </a>
         </div>
       </div>

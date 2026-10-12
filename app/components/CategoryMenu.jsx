@@ -164,9 +164,11 @@ export default function CategoryMenu() {
               <div className="flex items-center justify-between p-4 border-b"
                 style={{ borderColor: "#E7DED5", background: "#2B1B16" }}>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-black text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-                    THAWBIN
-                  </span>
+                  <img
+                    src="/logo-wordmark.png"
+                    alt="AWBIN"
+                    className="h-6 w-auto rounded-md object-contain"
+                  />
                   <span className="text-[10px] text-[#B89558] font-bold uppercase tracking-wider">
                     ক্যাটাগরি
                   </span>
@@ -200,7 +202,7 @@ export default function CategoryMenu() {
             {/* Footer */}
             <div className="p-4 border-t text-center text-xs"
               style={{ borderColor: "#E7DED5", background: "#FFFFFF", color: "#80736B" }}>
-              <p className="font-semibold text-[#2B1B16]">Thawbin ইসলামিক ই-কমার্স</p>
+              <p className="font-semibold text-[#2B1B16]">AWBIN ইসলামিক ই-কমার্স</p>
               <p className="text-[10px] mt-0.5">খাঁটি ও নির্ভরযোগ্য ইসলামিক পণ্য সম্ভার</p>
             </div>
           </div>

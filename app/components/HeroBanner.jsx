@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 const islamicHeroBanners = [
   {
     id: 1,
-    tag: 'Thawbin Signature',
+    tag: 'AWBIN Signature',
     title: 'আপনার জীবনে ইসলামিক\nসৌন্দর্যের ছোঁয়া',
     description: 'পাঞ্জাবি থেকে আতর, জায়নামাজ থেকে ইসলামিক উপহার—আপনার পছন্দের সবকিছু এক ঠিকানায়।',
     image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1200&h=650&fit=crop&q=85',

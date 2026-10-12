@@ -30,7 +30,7 @@ export async function POST(request) {
     // Send welcome email
     try {
 
-      await sendEmail(email, 'Welcome to Thawbin!', welcomeEmailHTML(name));
+      await sendEmail(email, 'Welcome to AWBIN!', welcomeEmailHTML(name));
     } catch (emailError) {
       console.error('Welcome email failed:', emailError);
     }

@@ -124,7 +124,7 @@ export default function ShopPage() {
         style={{ background: '#2B1B16', borderColor: 'rgba(184,149,88,0.25)' }}>
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-xs uppercase tracking-widest font-bold mb-2 text-[#B89558]">
-            Thawbin ইসলামিক সংগ্রহ
+            AWBIN ইসলামিক সংগ্রহ
           </p>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
             সকল ইসলামিক পণ্য
@@ -325,10 +325,10 @@ export default function ShopPage() {
                   <AlertCircle className="w-8 h-8 text-[#B89558]" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-[#2B1B16] mb-3">
-                  দুঃখিত, এই পণ্যটি Thawbin-এর ইসলামিক পণ্য সংগ্রহে নেই।
+                  দুঃখিত, এই পণ্যটি AWBIN-এর ইসলামিক পণ্য সংগ্রহে নেই।
                 </h3>
                 <p className="text-xs md:text-sm text-[#80736B] max-w-md mx-auto mb-6 leading-relaxed">
-                  Thawbin একটি বিশেষায়িত ইসলামিক লাইফস্টাইল শপ। আমরা শুধুমাত্র পাঞ্জাবি, আতর, টুপি, জায়নামাজ, তসবিহ, পবিত্র কুরআন ও ইসলামিক উপহার সামগ্রী সরবরাহ করি।
+                  AWBIN একটি বিশেষায়িত ইসলামিক লাইফস্টাইল শপ। আমরা শুধুমাত্র পাঞ্জাবি, আতর, টুপি, জায়নামাজ, তসবিহ, পবিত্র কুরআন ও ইসলামিক উপহার সামগ্রী সরবরাহ করি।
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   <button

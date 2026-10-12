@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'গোপনীয়তা নীতি (Privacy Policy) — Thawbin',
-  description: 'Thawbin ইসলামিক ই-কমার্স ওয়েবসাইটের গ্রাহক তথ্য সংরক্ষণ ও গোপনীয়তা নীতি।',
+  title: 'গোপনীয়তা নীতি (Privacy Policy) — AWBIN',
+  description: 'AWBIN ইসলামিক ই-কমার্স ওয়েবসাইটের গ্রাহক তথ্য সংরক্ষণ ও গোপনীয়তা নীতি।',
 };
 
 export default function PrivacyPolicy() {
@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
       <div className="max-w-4xl mx-auto rounded-3xl p-6 md:p-12 bg-white border border-[#E7DED5] shadow-sm">
         <p className="text-xs font-bold uppercase tracking-widest mb-1 text-[#B89558]">Privacy Policy</p>
         <h1 className="text-2xl md:text-4xl font-black mb-2 text-[#2B1B16]" style={{ fontFamily: "'Playfair Display', serif" }}>
-          গোপনীয়তা নীতি — Thawbin (থওবিন)
+          গোপনীয়তা নীতি — AWBIN (আওবিন)
         </h1>
         <p className="text-xs text-[#80736B] mb-8">
           সর্বশেষ সংস্করণ: {new Date().toLocaleDateString('bn-BD')}
@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
           <section className="p-5 rounded-2xl bg-[#FAF6F0] border border-[#E7DED5]">
             <h2 className="text-base font-bold mb-2 text-[#2B1B16]">৪. আপনার অধিকার</h2>
             <p className="text-[#5D4037]">
-              আপনি যেকোনো সময় আপনার প্রোফাইল তথ্য সংশোধন বা মুছে ফেলার অনুরোধ করতে পারেন। আমাদের প্রাইভেসি টিমের সাথে যোগাযোগ করতে পারেন: <a href="mailto:support@thawbin.com" className="font-bold underline text-[#B89558]">support@thawbin.com</a>
+              আপনি যেকোনো সময় আপনার প্রোফাইল তথ্য সংশোধন বা মুছে ফেলার অনুরোধ করতে পারেন। আমাদের প্রাইভেসি টিমের সাথে যোগাযোগ করতে পারেন: <a href="mailto:support@awbin.com" className="font-bold underline text-[#B89558]">support@awbin.com</a>
             </p>
           </section>
         </div>

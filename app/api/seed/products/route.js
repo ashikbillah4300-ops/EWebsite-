@@ -84,7 +84,7 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      message: '✅ Thawbin Islamic product catalog and categories seeded successfully!',
+      message: '✅ AWBIN Islamic product catalog and categories seeded successfully!',
       categoriesCount: ISLAMIC_CATEGORIES.length,
       productsSeeded: seededCount,
       totalCatalogSize: ISLAMIC_PRODUCTS.length

@@ -88,7 +88,7 @@ export default function CartDrawer({ isOpen, onClose, cart, loading, updateQuant
                       {item.product?.name || 'Product'}
                     </h3>
                     <p className="text-xs mt-0.5" style={{ color: '#C49A6C' }}>
-                      {item.product?.category || 'Thawbin'}
+                      {item.product?.category || 'AWBIN'}
                     </p>
                     <div className="flex items-center justify-between mt-2">
                       {/* Qty controls */}

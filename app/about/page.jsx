@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { Truck, ShieldCheck, HeartHandshake, Headphones, Sparkles, BookOpen, Gift } from 'lucide-react';
 
 export const metadata = {
-  title: 'আমাদের সম্পর্কে — Thawbin (থওবিন)',
-  description: 'Thawbin সম্পর্কে জানুন — বাংলাদেশী বিশ্বস্ত ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন অনলাইন স্টোর।',
+  title: 'আমাদের সম্পর্কে — AWBIN (আওবিন)',
+  description: 'AWBIN সম্পর্কে জানুন — বাংলাদেশী বিশ্বস্ত ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন অনলাইন স্টোর।',
 };
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
             <span>আমাদের পরিচিতি</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-[#2B1B16] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Thawbin — ইসলামিক পণ্যের বিশ্বস্ত ঠিকানা
+            AWBIN — ইসলামিক পণ্যের বিশ্বস্ত ঠিকানা
           </h1>
           <p className="text-sm md:text-base text-[#80736B] max-w-2xl mx-auto leading-relaxed">
             শালীন পোশাক, খাঁটি সুবাস ও ইবাদতের প্রয়োজনীয় সামগ্রী নিয়ে আপনার পাশে।
@@ -32,7 +32,7 @@ export default function AboutPage() {
             আমাদের লক্ষ্য ও উদ্দেশ্য
           </h2>
           <p className="text-[#2A211D]">
-            থওবিন (Thawbin) বাংলাদেশের মুসলিম গ্রাহকদের জন্য নিবেদিত একটি ইসলামিক লাইফস্টাইল ও ফ্যাশন প্ল্যাটফর্ম।
+            আওবিন (AWBIN) বাংলাদেশের মুসলিম গ্রাহকদের জন্য নিবেদিত একটি ইসলামিক লাইফস্টাইল ও ফ্যাশন প্ল্যাটফর্ম।
             আমরা বিশ্বাস করি দৈনন্দিন জীবনে শালীনতা এবং সুন্নাহভিত্তিক জীবনাচরণ মানব জীবনকে শান্তিময় করে তোলে।
           </p>
           <p className="text-[#80736B]">

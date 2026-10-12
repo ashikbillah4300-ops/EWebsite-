@@ -3,8 +3,8 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { ISLAMIC_CATEGORIES } from '@/lib/islamicCatalog';
 
 export const metadata = {
-  title: 'সকল ইসলামিক ক্যাটাগরি — Thawbin',
-  description: 'Thawbin-এর সকল অনুমোদিত ইসলামিক ক্যাটাগরি ব্রাউজ করুন। পাঞ্জাবি, আতর, জায়নামাজ, টুপি, তসবিহ, কুরআন ও ইসলামিক বই।',
+  title: 'সকল ইসলামিক ক্যাটাগরি — AWBIN',
+  description: 'AWBIN-এর সকল অনুমোদিত ইসলামিক ক্যাটাগরি ব্রাউজ করুন। পাঞ্জাবি, আতর, জায়নামাজ, টুপি, তসবিহ, কুরআন ও ইসলামিক বই।',
 };
 
 export default function CategoriesPage() {

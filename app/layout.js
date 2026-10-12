@@ -6,15 +6,20 @@ import UserLayoutWrapper from './components/UserLayoutWrapper';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Thawbin (থওবিন) — প্রিমিয়াম ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন',
-  description: 'Thawbin-এ স্বাগতম — আপনার পছন্দের প্রিমিয়াম পাঞ্জাবি, অ্যালকোহলমুক্ত আতর, জায়নামাজ, টুপি, তসবিহ, পবিত্র কুরআন ও ইসলামিক উপহারের বিশ্বস্ত অনলাইন ঠিকানা।',
-  keywords: 'Thawbin, থওবিন, ইসলামিক পণ্য, পাঞ্জাবি, আতর, জায়নামাজ, টুপি, তসবিহ, পবিত্র কুরআন, হিজাব, আবায়া, ইসলামিক উপহার, বাংলাদেশ',
+  title: 'AWBIN (আওবিন) — প্রিমিয়াম ইসলামিক লাইফস্টাইল ও মুসলিম ফ্যাশন',
+  description: 'AWBIN-এ স্বাগতম — আপনার পছন্দের প্রিমিয়াম পাঞ্জাবি, অ্যালকোহলমুক্ত আতর, জায়নামাজ, টুপি, তসবিহ, পবিত্র কুরআন ও ইসলামিক উপহারের বিশ্বস্ত অনলাইন ঠিকানা।',
+  keywords: 'AWBIN, আওবিন, Awbin, ইসলামিক পণ্য, পাঞ্জাবি, আতর, জায়নামাজ, টুপি, তসবিহ, পবিত্র কুরআন, হিজাব, আবায়া, ইসলামিক উপহার, বাংলাদেশ',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
-    title: 'Thawbin — আপনার জীবনে ইসলামিক সৌন্দর্যের ছোঁয়া',
+    title: 'AWBIN — আপনার জীবনে ইসলামিক সৌন্দর্যের ছোঁয়া',
     description: 'পাঞ্জাবি থেকে আতর, জায়নামাজ থেকে ইসলামিক উপহার—আপনার পছন্দের সবকিছু এক ঠিকানায়।',
     type: 'website',
     locale: 'bn_BD',
+    images: ['/logo-wordmark.png'],
   },
 };
 

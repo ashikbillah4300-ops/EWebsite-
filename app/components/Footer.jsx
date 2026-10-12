@@ -12,24 +12,15 @@ export default function Footer() {
           {/* Col 1: Brand Introduction & Description */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4 group">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
-                style={{ background: 'linear-gradient(135deg, #3A251E, #B89558)' }}
-              >
-                <ShoppingBag className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tight text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  THAWBIN
-                </span>
-                <span className="text-[9px] -mt-1 font-bold tracking-widest text-[#B89558] uppercase">
-                  Islamic Lifestyle
-                </span>
-              </div>
+              <img
+                src="/logo-wordmark.png"
+                alt="AWBIN"
+                className="h-11 w-auto rounded-lg shadow-md transition-transform group-hover:scale-105"
+              />
             </Link>
 
             <p className="text-xs md:text-sm leading-relaxed mb-5" style={{ color: '#D5C4B4' }}>
-              থওবিন (Thawbin) — প্রিমিয়াম পাঞ্জাবি, অ্যালকোহলমুক্ত আতর, আরামদায়ক জায়নামাজ, তসবিহ ও পবিত্র কুরআনের বিশ্বস্ত ইসলামিক অনলাইন শপ।
+              আওবিন (AWBIN) — প্রিমিয়াম পাঞ্জাবি, অ্যালকোহলমুক্ত আতর, আরামদায়ক জায়নামাজ, তসবিহ ও পবিত্র কুরআনের বিশ্বস্ত ইসলামিক অনলাইন শপ।
             </p>
 
             {/* Social Links */}
@@ -144,8 +135,8 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
-                <a href="mailto:support@thawbin.com" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
-                  support@thawbin.com
+                <a href="mailto:support@awbin.com" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  support@awbin.com
                 </a>
               </li>
             </ul>
@@ -176,7 +167,7 @@ export default function Footer() {
       <div style={{ borderTop: '1px solid #3A251E', background: '#221512' }}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs" style={{ color: '#8A7060' }}>
           <p>
-            © {new Date().getFullYear()} Thawbin (থওবিন). সর্বস্বত্ব সংরক্ষিত।
+            © {new Date().getFullYear()} AWBIN (আওবিন). সর্বস্বত্ব সংরক্ষিত।
           </p>
           <p className="text-[11px]">
             বাংলাদেশী বিশ্বস্ত ইসলামিক লাইফস্টাইল ব্র্যান্ড 🇧🇩

@@ -10,8 +10,8 @@ import {
 export async function generateMetadata({ params }) {
   const cat = getIslamicCategoryBySlug(params.slug);
   return {
-    title: cat ? `${cat.nameBn} (${cat.name}) — Thawbin` : 'ক্যাটাগরি — Thawbin',
-    description: cat?.description || 'Thawbin ইসলামিক পণ্য সংগ্রহ',
+    title: cat ? `${cat.nameBn} (${cat.name}) — AWBIN` : 'ক্যাটাগরি — AWBIN',
+    description: cat?.description || 'AWBIN ইসলামিক পণ্য সংগ্রহ',
   };
 }
 
@@ -60,7 +60,7 @@ export default function CategoryPage({ params }) {
               </p>
             )}
             <p className="text-xs md:text-sm text-[#E7D7C4] leading-relaxed">
-              {category?.description || 'Thawbin-এর খাঁটি ও বিশ্বস্ত ইসলামিক পণ্য সম্ভার'}
+              {category?.description || 'AWBIN-এর খাঁটি ও বিশ্বস্ত ইসলামিক পণ্য সম্ভার'}
             </p>
           </div>
         </div>

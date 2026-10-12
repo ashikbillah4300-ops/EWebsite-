@@ -14,7 +14,7 @@ export default function Navbar() {
   const { isSidebarOpen, toggleSidebar } = useCategories();
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [announcement, setAnnouncement] = useState("Thawbin-এ স্বাগতম — আপনার পছন্দের ইসলামিক পণ্য এখন একসাথে।");
+  const [announcement, setAnnouncement] = useState("AWBIN-এ স্বাগতম — আপনার পছন্দের ইসলামিক পণ্য এখন একসাথে।");
 
   useEffect(() => {
     if (cartOpen || isSidebarOpen) {
@@ -71,20 +71,16 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16 gap-5">
 
-            {/* Thawbin Logo */}
+            {/* Awbin Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
-                style={{ background: "linear-gradient(135deg, #2B1B16, #3A251E)" }}>
-                <ShoppingBag className="w-5 h-5 text-[#B89558]" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tight" style={{ color: "#2B1B16", fontFamily: "'Playfair Display', serif" }}>
-                  THAWBIN
-                </span>
-                <span className="text-[9px] -mt-1 font-bold tracking-widest text-[#B89558] uppercase">
-                  Islamic Lifestyle
-                </span>
-              </div>
+              <img
+                src="/logo-wordmark.png"
+                alt="AWBIN"
+                className="h-10 w-auto rounded-lg shadow-sm object-contain transition-transform group-hover:scale-105"
+              />
+              <span className="text-[10px] font-bold tracking-widest text-[#B89558] uppercase hidden xl:inline-block">
+                Islamic Lifestyle
+              </span>
             </Link>
 
             {/* Search Bar for Islamic Products */}
@@ -169,15 +165,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-4 py-2.5">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "#2B1B16" }}>
-              <ShoppingBag className="w-4 h-4 text-[#B89558]" />
-            </div>
-            <div>
-              <span className="text-xl font-black tracking-tight leading-none" style={{ color: "#2B1B16", fontFamily: "'Playfair Display', serif" }}>
-                THAWBIN
-              </span>
-            </div>
+            <img
+              src="/logo-wordmark.png"
+              alt="AWBIN"
+              className="h-8 w-auto rounded-md object-contain"
+            />
           </Link>
 
           <div className="flex items-center gap-2">

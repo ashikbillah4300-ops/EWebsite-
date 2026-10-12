@@ -44,8 +44,12 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-40">
       <div className="p-4 border-b">
-        <Link href="/admin/dashboard" className="text-xl font-black flex items-center gap-2" style={{ color: "#3E2723", fontFamily: "'Playfair Display', serif" }}>
-          THAWBIN
+        <Link href="/admin/dashboard" className="flex items-center gap-2">
+          <img
+            src="/logo-wordmark.png"
+            alt="AWBIN"
+            className="h-9 w-auto rounded-md object-contain"
+          />
         </Link>
         <p className="text-xs text-gray-500 mt-1">Admin Panel</p>
       </div>

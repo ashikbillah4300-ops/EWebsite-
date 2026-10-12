@@ -93,7 +93,7 @@ export default function OrdersPage() {
             </div>
             <h2 className="text-lg font-bold text-[#2B1B16] mb-2">আপনার কোনো সক্রিয় অর্ডার নেই</h2>
             <p className="text-xs text-[#80736B] mb-6">
-              Thawbin-এর চমৎকার পাঞ্জাবি, আতর বা জায়নামাজ কালেকশন থেকে আপনার পছন্দের পণ্য অর্ডার করুন।
+              AWBIN-এর চমৎকার পাঞ্জাবি, আতর বা জায়নামাজ কালেকশন থেকে আপনার পছন্দের পণ্য অর্ডার করুন।
             </p>
             <Link
               href="/shop"

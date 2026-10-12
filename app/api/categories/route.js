@@ -85,7 +85,7 @@ export async function POST(request) {
     const isProhibited = PROHIBITED_KEYWORDS.some(kw => lowerName.includes(kw));
     if (isProhibited) {
       return NextResponse.json(
-        { error: 'অননুমোদিত ক্যাটাগরি। Thawbin শুধুমাত্র ইসলামিক ও মুসলিম লাইফস্টাইল পণ্যের জন্য অনুমোদিত।' },
+        { error: 'অননুমোদিত ক্যাটাগরি। AWBIN শুধুমাত্র ইসলামিক ও মুসলিম লাইফস্টাইল পণ্যের জন্য অনুমোদিত।' },
         { status: 400 }
       );
     }

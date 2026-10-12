@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const metadata = {
-  title: 'Admin Login - THAWBIN',
-  description: 'THAWBIN Admin Login',
+  title: 'Admin Login - AWBIN',
+  description: 'AWBIN Admin Login',
 };
 
 export default function AdminLoginLayout({ children }) {

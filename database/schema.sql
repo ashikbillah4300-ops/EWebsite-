@@ -1,10 +1,10 @@
 -- ============================================
--- THAWBIN ISLAMIC E-COMMERCE DATABASE SCHEMA
+-- AWBIN ISLAMIC E-COMMERCE DATABASE SCHEMA
 -- ============================================
 
 -- Create Database
-CREATE DATABASE IF NOT EXISTS thawbin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE thawbin;
+CREATE DATABASE IF NOT EXISTS awbin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE awbin;
 
 -- ============================================
 -- USERS TABLE

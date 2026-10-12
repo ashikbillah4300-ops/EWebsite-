@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Admin Panel - THAWBIN',
-  description: 'THAWBIN E-commerce Admin Panel',
+  title: 'Admin Panel - AWBIN',
+  description: 'AWBIN E-commerce Admin Panel',
 };

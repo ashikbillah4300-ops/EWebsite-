@@ -57,7 +57,7 @@ export default function CheckoutPage() {
 
   const handleApplyCoupon = (e) => {
     e.preventDefault();
-    if (couponCode.toUpperCase() === 'THAWBIN10') {
+    if (couponCode.toUpperCase() === 'AWBIN10' || couponCode.toUpperCase() === 'THAWBIN10') {
       const disc = Math.round(subtotal * 0.1);
       setDiscountAmount(disc);
       setCouponMsg('১০% ছাড় সফলভাবে প্রযোজ্য হয়েছে!');
@@ -104,7 +104,7 @@ export default function CheckoutPage() {
       });
 
       const data = await res.json();
-      const confirmedOrderNumber = data.order?.orderNumber || `THB-${Math.floor(100000 + Math.random() * 900000)}`;
+      const confirmedOrderNumber = data.order?.orderNumber || `AWB-${Math.floor(100000 + Math.random() * 900000)}`;
 
       setOrderComplete({
         orderNumber: confirmedOrderNumber,
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
       clearCart();
     } catch (err) {
       // Fallback confirmation
-      const fallbackNumber = `THB-${Math.floor(100000 + Math.random() * 900000)}`;
+      const fallbackNumber = `AWB-${Math.floor(100000 + Math.random() * 900000)}`;
       setOrderComplete({
         orderNumber: fallbackNumber,
         total: finalTotal,
@@ -359,7 +359,7 @@ export default function CheckoutPage() {
                     type="text"
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
-                    placeholder="কুপন কোড (যেমন: THAWBIN10)"
+                    placeholder="কুপন কোড (যেমন: AWBIN10)"
                     className="flex-1 px-3 py-2 rounded-xl text-xs border border-[#E7DED5] bg-[#FAF6F0] focus:outline-none"
                   />
                   <button

@@ -211,7 +211,7 @@ export default function ProductDetailPage({ params }) {
                 {/* Category & Stock Tag */}
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#B89558]">
-                    {product.category?.nameBn || product.category?.name || 'Thawbin ইসলামিক পণ্য'}
+                    {product.category?.nameBn || product.category?.name || 'AWBIN ইসলামিক পণ্য'}
                   </span>
                   <span
                     className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${

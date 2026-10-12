@@ -39,9 +39,6 @@ export default function Navbar() {
     { href: "/category/prayer-mats", label: "জায়নামাজ" },
     { href: "/category/tasbih", label: "তসবিহ" },
     { href: "/category/quran-and-books", label: "কুরআন ও বই" },
-    { href: "/category/hijab-and-abaya", label: "হিজাব ও আবায়া" },
-    { href: "/category/islamic-gifts", label: "ইসলামিক গিফট" },
-    { href: "/category/ramadan-and-eid", label: "রমজান ও ঈদ" },
   ];
 
   return (

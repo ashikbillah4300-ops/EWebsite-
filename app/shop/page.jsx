@@ -200,7 +200,7 @@ export default function ShopPage() {
             >
               সকল ({products.length})
             </button>
-            {ISLAMIC_CATEGORIES.map((cat) => {
+            {ISLAMIC_CATEGORIES.slice(0, 6).map((cat) => {
               const count = products.filter(p => (p.category?.slug || p.category) === cat.slug).length;
               return (
                 <button

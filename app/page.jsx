@@ -30,7 +30,7 @@ const THEME = {
   mutedText:     '#80736B',
 };
 
-// ─── Section 4: Approved Category Cards ────────────────────
+// ─── Section 4: Approved Category Cards (Top 6 Categories) ──
 const categoryCards = [
   {
     nameBn: 'পাঞ্জাবি',
@@ -73,27 +73,6 @@ const categoryCards = [
     slug: 'quran-and-books',
     image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=600&q=80',
     desc: 'তাজবীদসহ কুরআন ও হাদিস'
-  },
-  {
-    nameBn: 'হিজাব ও আবায়া',
-    nameEn: 'Hijab & Abaya',
-    slug: 'hijab-and-abaya',
-    image: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=80',
-    desc: 'দুবাই নিদাহ ও তুর্কি হিজাব'
-  },
-  {
-    nameBn: 'ইসলামিক গিফট',
-    nameEn: 'Islamic Gifts',
-    slug: 'islamic-gifts',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80',
-    desc: 'উপহার বক্স ও কম্বো প্যাকেজ'
-  },
-  {
-    nameBn: 'হজ ও ওমরাহ',
-    nameEn: 'Hajj & Umrah',
-    slug: 'hajj-and-umrah',
-    image: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=600&q=80',
-    desc: 'ইহরাম ও সফরের সামগ্রী'
   },
 ];
 

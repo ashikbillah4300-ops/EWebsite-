@@ -29,13 +29,14 @@ export default function CategoryMenu() {
     fetchCategories();
   }, []);
 
-  // Primary categories to show in the main bar
+  // Primary categories to show in the main bar (Top 6 categories)
   const mainBarSlugs = [
-    'panjabi', 'attar', 'topi', 'prayer-mats', 'tasbih',
-    'quran-and-books', 'hijab-and-abaya', 'islamic-gifts', 'ramadan-and-eid'
+    'panjabi', 'attar', 'topi', 'prayer-mats', 'tasbih', 'quran-and-books'
   ];
 
-  const primaryCategories = categories.filter(c => mainBarSlugs.includes(c.slug));
+  const primaryCategories = mainBarSlugs
+    .map(slug => categories.find(c => c.slug === slug))
+    .filter(Boolean);
   const moreCategories = categories.filter(c => !mainBarSlugs.includes(c.slug));
 
   return (

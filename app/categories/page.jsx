@@ -27,9 +27,9 @@ export default function CategoriesPage() {
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {ISLAMIC_CATEGORIES.map((cat) => (
+        {/* Categories Grid (Top 6 Categories) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+          {ISLAMIC_CATEGORIES.slice(0, 6).map((cat) => (
             <Link
               key={cat.slug}
               href={`/category/${cat.slug}`}

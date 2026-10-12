@@ -2,7 +2,6 @@
 
 ## Phase 1: Database Models (New models needed)
 - [ ] Coupon model
-- [ ] Vendor model  
 - [ ] Shipping model
 - [ ] Notification model
 - [ ] ActivityLog model
@@ -11,7 +10,6 @@
 
 ## Phase 2: API Routes
 - [ ] /api/coupons - CRUD for coupons
-- [ ] /api/vendors - CRUD for vendors
 - [ ] /api/shipping - CRUD for shipping methods
 - [ ] /api/notifications - CRUD for notifications
 - [ ] /api/activity-logs - Activity logging
@@ -34,8 +32,7 @@
 - [ ] 13. Notifications
 - [ ] 14. Coupons
 - [ ] 15. Shipping
-- [ ] 16. Vendors
-- [ ] 17. SEO
+- [ ] 16. SEO
 - [ ] 18. Media Library
 - [ ] 19. Database
 - [ ] 20. Cache

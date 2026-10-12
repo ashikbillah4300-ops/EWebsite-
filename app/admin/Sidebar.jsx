@@ -31,7 +31,6 @@ const menuItems = [
   // Additional
   { name: 'Coupons', href: '/admin/coupons', icon: '🎟️' },
   { name: 'Shipping', href: '/admin/shipping', icon: '🚚' },
-  { name: 'Vendors', href: '/admin/vendors', icon: '🏪' },
   { name: 'SEO', href: '/admin/seo', icon: '🔍' },
   { name: 'Media Library', href: '/admin/media', icon: '🖼️' },
   { name: 'Database', href: '/admin/database', icon: '🗄️' },

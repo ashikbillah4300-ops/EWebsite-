@@ -25,7 +25,6 @@ const pageTitles = {
   '/admin/notifications': 'Notifications',
   '/admin/coupons': 'Coupons Management',
   '/admin/shipping': 'Shipping Management',
-  '/admin/vendors': 'Vendors Management',
   '/admin/seo': 'SEO Settings',
   '/admin/media': 'Media Library',
   '/admin/database': 'Database Management',

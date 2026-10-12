@@ -57,7 +57,7 @@ export default function CheckoutPage() {
 
   const handleApplyCoupon = (e) => {
     e.preventDefault();
-    if (couponCode.toUpperCase() === 'AWBIN10' || couponCode.toUpperCase() === 'THAWBIN10') {
+    if (couponCode.toUpperCase() === 'AWBIN10') {
       const disc = Math.round(subtotal * 0.1);
       setDiscountAmount(disc);
       setCouponMsg('১০% ছাড় সফলভাবে প্রযোজ্য হয়েছে!');

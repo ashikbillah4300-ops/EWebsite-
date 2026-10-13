@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import CategoryMenu from "./CategoryMenu";
 import Footer from "./Footer";
 import { CategoryProvider } from "../context/CategoryContext";
+import WhatsAppFloatingButton from "./WhatsAppFloatingButton";
 
 export default function UserLayoutWrapper({ children }) {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export default function UserLayoutWrapper({ children }) {
           <CategoryMenu />
           {children}
           <Footer />
+          <WhatsAppFloatingButton />
         </CategoryProvider>
       )}
     </>

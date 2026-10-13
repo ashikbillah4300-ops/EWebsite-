@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { 
   Settings, 
   Save, 
@@ -23,7 +24,7 @@ import {
   Image,
   Video,
   FileText,
-  Link,
+  Link as LinkIcon,
   Share2
 } from 'lucide-react';
 
@@ -55,6 +56,8 @@ export default function SettingsPage() {
     contactPhone: '+880 1700 000000',
     contactAddress: 'ঢাকা, বাংলাদেশ',
     workingHours: '10:00 AM - 8:00 PM',
+    whatsappNumber: '01700000000',
+    whatsappMessage: 'আসসালামু আলাইকুম! আমি আপনাদের প্রোডাক্ট ও অর্ডার সম্পর্কে জানতে চাচ্ছি।',
     
     // Email
     smtpHost: 'smtp.example.com',
@@ -82,13 +85,49 @@ export default function SettingsPage() {
     comingSoon: false,
   });
 
-  const handleSave = () => {
+  useEffect(() => {
+    async function fetchWhatsApp() {
+      try {
+        const res = await fetch('/api/contact/settings');
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.settings?.whatsappNumber) {
+            setSettings(prev => ({
+              ...prev,
+              whatsappNumber: data.settings.whatsappNumber,
+              whatsappMessage: data.settings.whatsappMessage || prev.whatsappMessage,
+            }));
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to load whatsapp settings:', e);
+      }
+    }
+    fetchWhatsApp();
+  }, []);
+
+  const handleSave = async () => {
     setSaving(true);
+    try {
+      await fetch('/api/contact/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          whatsappNumber: settings.whatsappNumber,
+          whatsappMessage: settings.whatsappMessage,
+        }),
+      });
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('whatsapp_settings_sync', Date.now().toString());
+      }
+    } catch (e) {
+      console.warn('Error saving whatsapp settings:', e);
+    }
     setTimeout(() => {
       setSaving(false);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    }, 1000);
+    }, 800);
   };
 
   const tabs = [
@@ -351,6 +390,32 @@ export default function SettingsPage() {
                   onChange={(e) => setSettings({...settings, workingHours: e.target.value})}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+              </div>
+
+              {/* WhatsApp Button Configuration */}
+              <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-bold text-emerald-900 flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>ওয়েবসাইট ফ্লোটিং WhatsApp বাটন নম্বর (WhatsApp Number)</span>
+                  </label>
+                  <Link
+                    href="/admin/contact"
+                    className="text-xs text-emerald-700 hover:text-emerald-900 font-semibold underline"
+                  >
+                    কন্টাক্ট সেকশনে সম্পূর্ণ অপশন ও প্রিভিউ দেখুন →
+                  </Link>
+                </div>
+                <input
+                  type="text"
+                  placeholder="e.g. 01700000000 বা +8801700000000"
+                  value={settings.whatsappNumber || ''}
+                  onChange={(e) => setSettings({...settings, whatsappNumber: e.target.value})}
+                  className="w-full px-4 py-2 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white text-gray-900 font-medium"
+                />
+                <p className="text-xs text-emerald-700">
+                  ওয়েবসাইটের ডান পাশের গোল WhatsApp বাটনে ক্লিক করলে সরাসরি এই নম্বরে কাস্টমাররা চ্যাট করতে পারবে।
+                </p>
               </div>
             </div>
           )}

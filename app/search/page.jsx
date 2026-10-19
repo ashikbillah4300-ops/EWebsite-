@@ -86,7 +86,7 @@ export default function SearchPage() {
         ) : matchingProducts.length === 0 ? (
           <div className="bg-white rounded-3xl p-10 text-center border border-[#E7DED5] max-w-xl mx-auto">
             <p className="text-base font-bold text-[#2B1B16] mb-2">
-              দুঃখিত, "{query}" সম্পর্কিত কোনো পণ্য পাওয়া যায়নি।
+              দুঃখিত, &quot;{query}&quot; সম্পর্কিত কোনো পণ্য পাওয়া যায়নি।
             </p>
             <p className="text-xs text-[#80736B] mb-5">
               অনুগ্রহ করে বানান যাচাই করুন অথবা ক্যাটাগরি অনুসারে ব্রাউজ করুন।

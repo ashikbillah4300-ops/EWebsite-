@@ -37,13 +37,10 @@ export async function GET(request) {
     
     const banners = await Banner.find(query).sort({ orderBy: 1, createdAt: -1 });
     
-    return NextResponse.json({ banners });
+    return NextResponse.json({ banners: banners || [] });
   } catch (error) {
-    console.error('Get banners error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch banners' },
-      { status: 500 }
-    );
+    console.warn('Get banners fallback:', error.message);
+    return NextResponse.json({ banners: [] }, { status: 200 });
   }
 }
 

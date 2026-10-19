@@ -430,10 +430,10 @@ export default function ProductDetailPage({ params }) {
                 <div className="p-4 rounded-xl bg-white border border-[#E7DED5]">
                   <p className="font-bold text-[#2B1B16] mb-2">পাঞ্জাবি সাইজ চার্ট (ইঞ্চি):</p>
                   <div className="grid grid-cols-4 gap-2 text-center text-xs">
-                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৩৮: বুক ৪০", ঝুল ৪০"</div>
-                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪০: বুক ৪২", ঝুল ৪২"</div>
-                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪২: বুক ৪৪", ঝুল ৪৪"</div>
-                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪৪: বুক ৪৬", ঝুল ৪৪"</div>
+                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৩৮: বুক ৪০&quot;, ঝুল ৪০&quot;</div>
+                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪০: বুক ৪২&quot;, ঝুল ৪২&quot;</div>
+                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪২: বুক ৪৪&quot;, ঝুল ৪৪&quot;</div>
+                    <div className="p-2 bg-[#FAF6F0] rounded-lg font-semibold">সাইজ ৪৪: বুক ৪৬&quot;, ঝুল ৪৪&quot;</div>
                   </div>
                 </div>
               )}

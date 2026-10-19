@@ -379,7 +379,7 @@ export default function SEOPage() {
                     onChange={(e) => setFormData({ ...formData, noFollow: e.target.checked })}
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm text-gray-700">No Follow (don't follow links)</span>
+                  <span className="text-sm text-gray-700">No Follow (don&apos;t follow links)</span>
                 </label>
               </div>
 

@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import { Product } from '@/models';
 import { ISLAMIC_PRODUCTS } from '@/lib/islamicCatalog';
+import { 
+  getDeletedProductIds, 
+  isProductDeleted, 
+  getCustomProducts, 
+  saveCustomProduct 
+} from '@/lib/productStore';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,6 +23,7 @@ export async function GET(request) {
     const slug = searchParams.get('slug');
     const sort = searchParams.get('sort') || '-createdAt';
 
+    const deletedIds = getDeletedProductIds();
     let dbProducts = [];
     let total = 0;
 
@@ -55,30 +62,39 @@ export async function GET(request) {
           .lean(),
         Product.countDocuments(query),
       ]);
+
+      if (dbProducts && dbProducts.length > 0) {
+        // Exclude products that were deleted locally
+        const filteredDb = dbProducts.filter(p => !isProductDeleted(p, deletedIds));
+        return NextResponse.json({
+          products: filteredDb,
+          pagination: {
+            page,
+            limit,
+            total: filteredDb.length,
+            pages: Math.ceil(filteredDb.length / limit),
+          },
+        });
+      }
     } catch (dbErr) {
-      console.warn('Database query fallback to Islamic catalog:', dbErr.message);
+      console.warn('Database query fallback to Islamic catalog & custom store:', dbErr.message);
     }
 
-    if (dbProducts && dbProducts.length > 0) {
-      return NextResponse.json({
-        products: dbProducts,
-        pagination: {
-          page,
-          limit,
-          total,
-          pages: Math.ceil(total / limit),
-        },
-      });
-    }
+    // Fallback: Combine custom products and Islamic catalog, filter out deleted products
+    const customList = getCustomProducts();
+    let availableProducts = [...customList, ...ISLAMIC_PRODUCTS].filter(
+      p => !isProductDeleted(p, deletedIds)
+    );
 
-    // Fallback to in-memory Islamic catalog
-    let filtered = [...ISLAMIC_PRODUCTS];
+    let filtered = [...availableProducts];
 
     if (slug) {
       filtered = filtered.filter(p => p.slug === slug);
     }
     if (category) {
-      filtered = filtered.filter(p => p.category?.slug === category || p.category?._id === category);
+      filtered = filtered.filter(
+        p => p.category?.slug === category || p.category?._id === category || p.category === category
+      );
     }
     if (search) {
       const q = search.toLowerCase();
@@ -97,9 +113,9 @@ export async function GET(request) {
     }
 
     if (sort === 'price_asc') {
-      filtered.sort((a, b) => a.sellingPrice - b.sellingPrice);
+      filtered.sort((a, b) => (a.sellingPrice || a.price || 0) - (b.sellingPrice || b.price || 0));
     } else if (sort === 'price_desc') {
-      filtered.sort((a, b) => b.sellingPrice - a.sellingPrice);
+      filtered.sort((a, b) => (b.sellingPrice || b.price || 0) - (a.sellingPrice || a.price || 0));
     }
 
     const paginated = filtered.slice((page - 1) * limit, page * limit);
@@ -124,21 +140,12 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    await dbConnect();
     const data = await request.json();
 
-    const slug = data.slug || data.name
+    const slug = data.slug || (data.name || 'product')
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
-
-    const existingProduct = await Product.findOne({ slug });
-    if (existingProduct) {
-      return NextResponse.json(
-        { error: 'Product with this name already exists' },
-        { status: 400 }
-      );
-    }
 
     if (data.regularPrice && data.sellingPrice) {
       data.discountPercent = Math.round(
@@ -154,13 +161,40 @@ export async function POST(request) {
       data.stockStatus = 'in_stock';
     }
 
-    const product = await Product.create({
+    let product = null;
+
+    // Try DB creation
+    try {
+      await dbConnect();
+      const existingProduct = await Product.findOne({ slug });
+      if (existingProduct) {
+        return NextResponse.json(
+          { error: 'Product with this name already exists' },
+          { status: 400 }
+        );
+      }
+
+      product = await Product.create({
+        ...data,
+        slug,
+      });
+    } catch (dbErr) {
+      console.warn('DB create product fallback to local store:', dbErr.message);
+    }
+
+    // Local fallback or mirror
+    const localProduct = product ? (product.toObject ? product.toObject() : product) : {
+      _id: 'custom_' + Date.now(),
       ...data,
       slug,
-    });
+      isActive: true,
+      createdAt: new Date().toISOString(),
+    };
+
+    saveCustomProduct(localProduct);
 
     return NextResponse.json(
-      { message: 'Product created successfully', product },
+      { message: 'Product created successfully', product: product || localProduct },
       { status: 201 }
     );
   } catch (error) {

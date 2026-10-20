@@ -2,28 +2,38 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import { Setting } from '@/models';
 import { DEFAULT_WHATSAPP_SETTINGS } from '@/lib/whatsapp';
+import { getLocalSettings, saveLocalSettings } from '@/lib/settingsStore';
 
 export const dynamic = 'force-dynamic';
 
-// Server-side memory fallback in case DB is temporarily unreachable
-let fallbackMemorySettings = { ...DEFAULT_WHATSAPP_SETTINGS };
-
 export async function GET() {
   try {
-    let settings = { ...DEFAULT_WHATSAPP_SETTINGS, ...fallbackMemorySettings };
+    const local = getLocalSettings();
+    let settings = {
+      whatsappNumber: local.whatsappNumber || DEFAULT_WHATSAPP_SETTINGS.whatsappNumber,
+      whatsappMessage: local.whatsappMessage || DEFAULT_WHATSAPP_SETTINGS.whatsappMessage,
+      isEnabled: local.isEnabled !== undefined ? local.isEnabled : true,
+      tooltipText: local.tooltipText || DEFAULT_WHATSAPP_SETTINGS.tooltipText,
+      position: local.position || 'bottom-right',
+      contactPhone: local.contactPhone || '+880 1700 000000',
+      contactEmail: local.contactEmail || 'support@awbin.com',
+      contactAddress: local.contactAddress || 'ঢাকা, বাংলাদেশ',
+      workingHours: local.workingHours || '10:00 AM - 8:00 PM',
+    };
 
     try {
       await dbConnect();
       const dbRecord = await Setting.findOne({ key: 'whatsapp_settings' });
       if (dbRecord && dbRecord.value) {
         settings = {
-          ...DEFAULT_WHATSAPP_SETTINGS,
+          ...settings,
           ...dbRecord.value,
         };
-        fallbackMemorySettings = { ...settings };
+        // Keep disk store in sync with DB
+        saveLocalSettings(settings);
       }
     } catch (dbErr) {
-      console.warn('DB connect error while fetching whatsapp settings, using fallback:', dbErr.message);
+      console.warn('DB connect error while fetching whatsapp settings, using disk fallback:', dbErr.message);
     }
 
     return NextResponse.json({
@@ -32,10 +42,21 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Error fetching WhatsApp settings:', error);
+    const local = getLocalSettings();
     return NextResponse.json(
       {
         success: true,
-        settings: fallbackMemorySettings,
+        settings: {
+          whatsappNumber: local.whatsappNumber || DEFAULT_WHATSAPP_SETTINGS.whatsappNumber,
+          whatsappMessage: local.whatsappMessage || DEFAULT_WHATSAPP_SETTINGS.whatsappMessage,
+          isEnabled: local.isEnabled !== undefined ? local.isEnabled : true,
+          tooltipText: local.tooltipText || DEFAULT_WHATSAPP_SETTINGS.tooltipText,
+          position: local.position || 'bottom-right',
+          contactPhone: local.contactPhone || '+880 1700 000000',
+          contactEmail: local.contactEmail || 'support@awbin.com',
+          contactAddress: local.contactAddress || 'ঢাকা, বাংলাদেশ',
+          workingHours: local.workingHours || '10:00 AM - 8:00 PM',
+        },
       },
       { status: 200 }
     );
@@ -45,20 +66,26 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
+    const currentLocal = getLocalSettings();
 
     const newSettings = {
-      whatsappNumber: body.whatsappNumber !== undefined ? String(body.whatsappNumber).trim() : fallbackMemorySettings.whatsappNumber,
-      whatsappMessage: body.whatsappMessage !== undefined ? String(body.whatsappMessage).trim() : fallbackMemorySettings.whatsappMessage,
-      isEnabled: body.isEnabled !== undefined ? Boolean(body.isEnabled) : true,
-      tooltipText: body.tooltipText !== undefined ? String(body.tooltipText).trim() : 'WhatsApp এ চ্যাট করুন',
-      position: body.position || 'bottom-right',
+      ...currentLocal,
+      whatsappNumber: body.whatsappNumber !== undefined ? String(body.whatsappNumber).trim() : currentLocal.whatsappNumber,
+      whatsappMessage: body.whatsappMessage !== undefined ? String(body.whatsappMessage).trim() : currentLocal.whatsappMessage,
+      isEnabled: body.isEnabled !== undefined ? Boolean(body.isEnabled) : (currentLocal.isEnabled !== undefined ? currentLocal.isEnabled : true),
+      tooltipText: body.tooltipText !== undefined ? String(body.tooltipText).trim() : (currentLocal.tooltipText || 'WhatsApp এ চ্যাট করুন'),
+      position: body.position || currentLocal.position || 'bottom-right',
+      contactPhone: body.contactPhone !== undefined ? String(body.contactPhone).trim() : currentLocal.contactPhone,
+      contactEmail: body.contactEmail !== undefined ? String(body.contactEmail).trim() : currentLocal.contactEmail,
+      contactAddress: body.contactAddress !== undefined ? String(body.contactAddress).trim() : currentLocal.contactAddress,
+      workingHours: body.workingHours !== undefined ? String(body.workingHours).trim() : currentLocal.workingHours,
       updatedAt: new Date().toISOString(),
     };
 
-    // Update memory fallback
-    fallbackMemorySettings = { ...newSettings };
+    // Always persist to local disk JSON file so it NEVER resets on server reload
+    saveLocalSettings(newSettings);
 
-    // Try persisting to MongoDB
+    // Also attempt persisting to MongoDB if connected
     try {
       await dbConnect();
       await Setting.findOneAndUpdate(
@@ -66,20 +93,31 @@ export async function POST(request) {
         {
           $set: {
             key: 'whatsapp_settings',
-            value: newSettings,
+            value: {
+              whatsappNumber: newSettings.whatsappNumber,
+              whatsappMessage: newSettings.whatsappMessage,
+              isEnabled: newSettings.isEnabled,
+              tooltipText: newSettings.tooltipText,
+              position: newSettings.position,
+              contactPhone: newSettings.contactPhone,
+              contactEmail: newSettings.contactEmail,
+              contactAddress: newSettings.contactAddress,
+              workingHours: newSettings.workingHours,
+              updatedAt: newSettings.updatedAt,
+            },
             type: 'json',
-            description: 'Public WhatsApp floating button configuration',
+            description: 'Public WhatsApp and contact configuration',
           },
         },
         { upsert: true, new: true, setDefaultsOnInsert: true }
       );
     } catch (dbErr) {
-      console.warn('DB error while updating whatsapp settings (saved to memory):', dbErr.message);
+      console.warn('DB error while updating whatsapp settings (persisted to disk store):', dbErr.message);
     }
 
     return NextResponse.json({
       success: true,
-      message: 'হোয়াটসঅ্যাপ সেটিংস সফলভাবে সংরক্ষিত হয়েছে (WhatsApp settings saved successfully)',
+      message: 'হোয়াটসঅ্যাপ ও কন্টাক্ট সেটিংস সফলভাবে সংরক্ষিত হয়েছে (Settings saved successfully)',
       settings: newSettings,
     });
   } catch (error) {

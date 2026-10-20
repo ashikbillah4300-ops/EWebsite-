@@ -1,16 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, MessageSquare, CheckCircle2, Clock } from 'lucide-react';
+import { cleanWhatsAppNumber } from '@/lib/whatsapp';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+880 1700-000000',
+    whatsappNumber: '01700000000',
+    email: 'support@awbin.com',
+    address: 'ঢাকা, বাংলাদেশ',
+    workingHours: 'সকাল ১০টা থেকে রাত ৮টা (শনিবার - বৃহস্পতিবার)',
+  });
+
+  useEffect(() => {
+    async function loadContactSettings() {
+      try {
+        const res = await fetch('/api/contact/settings', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.settings) {
+            setContactInfo({
+              phone: data.settings.contactPhone || data.settings.whatsappNumber || '+880 1700-000000',
+              whatsappNumber: data.settings.whatsappNumber || '01700000000',
+              email: data.settings.contactEmail || 'support@awbin.com',
+              address: data.settings.contactAddress || 'ঢাকা, বাংলাদেশ',
+              workingHours: data.settings.workingHours || 'সকাল ১০টা থেকে রাত ৮টা (শনিবার - বৃহস্পতিবার)',
+            });
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load dynamic contact info:', err);
+      }
+    }
+    loadContactSettings();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  const phoneLink = `tel:${cleanWhatsAppNumber(contactInfo.phone || contactInfo.whatsappNumber)}`;
 
   return (
     <div className="min-h-screen py-10 md:py-16" style={{ background: "#FAF6F0", color: "#2A211D" }}>
@@ -44,8 +77,10 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs md:text-sm text-[#2B1B16]">হটলাইন ও হোয়াটসঅ্যাপ</h3>
-                  <p className="text-xs text-[#80736B] mt-0.5">+880 1700-000000</p>
-                  <p className="text-[11px] text-[#80736B] mt-0.5">সকাল ১০টা থেকে রাত ৮টা (শনিবার - বৃহস্পতিবার)</p>
+                  <a href={phoneLink} className="text-xs text-[#80736B] hover:text-[#B89558] mt-0.5 block font-medium">
+                    {contactInfo.phone}
+                  </a>
+                  <p className="text-[11px] text-[#80736B] mt-0.5">{contactInfo.workingHours}</p>
                 </div>
               </div>
 
@@ -55,7 +90,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs md:text-sm text-[#2B1B16]">ইমেইল সাপোর্ট</h3>
-                  <p className="text-xs text-[#80736B] mt-0.5">support@awbin.com</p>
+                  <a href={`mailto:${contactInfo.email}`} className="text-xs text-[#80736B] hover:text-[#B89558] mt-0.5 block font-medium">
+                    {contactInfo.email}
+                  </a>
                   <p className="text-[11px] text-[#80736B] mt-0.5">২৪ ঘণ্টার মধ্যে উত্তর প্রদান করা হয়</p>
                 </div>
               </div>
@@ -66,7 +103,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs md:text-sm text-[#2B1B16]">অফিস ও আউটলেট</h3>
-                  <p className="text-xs text-[#80736B] mt-0.5">ঢাকা, বাংলাদেশ</p>
+                  <p className="text-xs text-[#80736B] mt-0.5">{contactInfo.address}</p>
                   <p className="text-[11px] text-[#80736B] mt-0.5">সারাদেশে হোম ডেলিভারি সার্ভিসের মাধ্যমে পরিচালিত</p>
                 </div>
               </div>

@@ -1,8 +1,63 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingBag, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Sparkles } from 'lucide-react';
 import { ISLAMIC_CATEGORIES } from '@/lib/islamicCatalog';
+import { cleanWhatsAppNumber } from '@/lib/whatsapp';
 
 export default function Footer() {
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+880 1700-000000',
+    email: 'support@awbin.com',
+    address: 'ঢাকা, বাংলাদেশ',
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchContact() {
+      try {
+        const res = await fetch('/api/contact/settings', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.settings && isMounted) {
+            setContactInfo({
+              phone: data.settings.contactPhone || data.settings.whatsappNumber || '+880 1700-000000',
+              email: data.settings.contactEmail || 'support@awbin.com',
+              address: data.settings.contactAddress || 'ঢাকা, বাংলাদেশ',
+            });
+          }
+        }
+      } catch (e) {
+        // Keep fallback
+      }
+    }
+    fetchContact();
+
+    const handleUpdate = (e) => {
+      if (e?.detail) {
+        setContactInfo(prev => ({
+          phone: e.detail.contactPhone || e.detail.whatsappNumber || prev.phone,
+          email: e.detail.contactEmail || prev.email,
+          address: e.detail.contactAddress || prev.address,
+        }));
+      } else {
+        fetchContact();
+      }
+    };
+
+    window.addEventListener('whatsapp-settings-updated', handleUpdate);
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'whatsapp_settings_sync') fetchContact();
+    });
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener('whatsapp-settings-updated', handleUpdate);
+    };
+  }, []);
+
+  const phoneHref = `tel:${cleanWhatsAppNumber(contactInfo.phone)}`;
   return (
     <footer style={{ background: '#2B1B16', color: '#E7D7C4' }}>
       {/* ── Main Footer Grid ───────────────────────────────────────── */}
@@ -125,18 +180,18 @@ export default function Footer() {
             <ul className="space-y-3 text-xs md:text-sm mb-6">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
-                <span style={{ color: '#C5B0A0' }}>ঢাকা, বাংলাদেশ</span>
+                <span style={{ color: '#C5B0A0' }}>{contactInfo.address}</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
-                <a href="tel:+8801700000000" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
-                  +880 1700-000000
+                <a href={phoneHref} className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  {contactInfo.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#B89558]" />
-                <a href="mailto:support@awbin.com" className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
-                  support@awbin.com
+                <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors" style={{ color: '#C5B0A0' }}>
+                  {contactInfo.email}
                 </a>
               </li>
             </ul>

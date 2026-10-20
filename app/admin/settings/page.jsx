@@ -86,42 +86,50 @@ export default function SettingsPage() {
   });
 
   useEffect(() => {
-    async function fetchWhatsApp() {
+    async function fetchSettings() {
       try {
-        const res = await fetch('/api/contact/settings');
+        const res = await fetch('/api/settings', { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
-          if (data?.settings?.whatsappNumber) {
+          if (data?.settings) {
             setSettings(prev => ({
               ...prev,
-              whatsappNumber: data.settings.whatsappNumber,
-              whatsappMessage: data.settings.whatsappMessage || prev.whatsappMessage,
+              ...data.settings,
             }));
           }
         }
       } catch (e) {
-        console.warn('Failed to load whatsapp settings:', e);
+        console.warn('Failed to load settings:', e);
       }
     }
-    fetchWhatsApp();
+    fetchSettings();
   }, []);
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      await fetch('/api/contact/settings', {
+      const res = await fetch('/api/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          whatsappNumber: settings.whatsappNumber,
-          whatsappMessage: settings.whatsappMessage,
-        }),
+        body: JSON.stringify(settings),
       });
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('whatsapp_settings_sync', Date.now().toString());
+
+      if (res.ok) {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('whatsapp-settings-updated', {
+            detail: {
+              whatsappNumber: settings.whatsappNumber,
+              whatsappMessage: settings.whatsappMessage,
+              contactPhone: settings.contactPhone,
+              contactEmail: settings.contactEmail,
+              contactAddress: settings.contactAddress,
+            }
+          }));
+          localStorage.setItem('whatsapp_settings_sync', Date.now().toString());
+        }
       }
     } catch (e) {
-      console.warn('Error saving whatsapp settings:', e);
+      console.warn('Error saving settings:', e);
     }
     setTimeout(() => {
       setSaving(false);
